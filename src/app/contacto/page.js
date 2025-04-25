@@ -2,7 +2,7 @@
 
 import { useState } from "react";
 
-export default function ContactoPage() {
+export default function Contacto() {
   const [enviando, setEnviando] = useState(false);
 
   const handleSubmit = (e) => {
@@ -18,58 +18,42 @@ export default function ContactoPage() {
       `Hola Marcelo! 👋 Soy ${nombre} (${correo}) y te escribo desde tu página web.\n\n${mensaje}`
     );
 
-    const numeroWhatsApp = "569XXXXXXXX"; // reemplaza por tu número real
-
+    const numeroWhatsApp = "56995995678"; // reemplaza por tu número real
     window.open(`https://wa.me/${numeroWhatsApp}?text=${texto}`, "_blank");
     setTimeout(() => setEnviando(false), 1000);
   };
 
   return (
-    <main className="min-h-screen bg-gradient-to-br from-white via-gray-50 to-blue-50 p-6">
-      <section className="max-w-xl mx-auto bg-white shadow-xl rounded-2xl p-8 animate-fade-in">
-        <h1 className="text-3xl font-bold text-center text-blue-700 mb-2">Contáctame por WhatsApp</h1>
-        <p className="text-center text-gray-600 mb-6">
-          Completa este formulario y te abriré un chat con la info lista.
+    <main className="min-h-screen px-4 py-12 bg-[#000000] text-[#f4f1ec]">
+      <section className="max-w-2xl mx-auto text-center">
+        <img src="/saidcoach-logo.svg" alt="Logo SaidCoach" className="mx-auto h-20 md:h-24 mb-6" />
+        <h1 className="text-3xl md:text-5xl font-bold mb-4">Contáctanos</h1>
+        <p className="text-md md:text-lg text-[#f4deb7] mb-8">
+          Cuéntanos en qué podemos ayudarte. Completa este formulario y abriremos un chat con la información lista.
         </p>
+      </section>
 
-        <form onSubmit={handleSubmit} className="space-y-5">
+      <section className="max-w-xl mx-auto bg-[#f4deb7] text-gray-900 rounded-2xl shadow p-6">
+        <form onSubmit={handleSubmit} className="space-y-4">
           <div>
-            <label className="block mb-1 text-sm font-medium text-gray-700">Nombre</label>
-            <input
-              type="text"
-              name="nombre"
-              required
-              placeholder="Tu nombre"
-              className="w-full border border-gray-300 rounded-lg p-3 focus:ring-2 focus:ring-blue-500"
-            />
+            <label htmlFor="nombre" className="block font-semibold mb-1">Nombre</label>
+            <input type="text" id="nombre" name="nombre" required className="w-full rounded px-4 py-2 bg-white" />
           </div>
 
           <div>
-            <label className="block mb-1 text-sm font-medium text-gray-700">Correo</label>
-            <input
-              type="email"
-              name="email"
-              required
-              placeholder="tucorreo@ejemplo.com"
-              className="w-full border border-gray-300 rounded-lg p-3 focus:ring-2 focus:ring-blue-500"
-            />
+            <label htmlFor="email" className="block font-semibold mb-1">Correo electrónico</label>
+            <input type="email" id="email" name="email" required className="w-full rounded px-4 py-2 bg-white" />
           </div>
 
           <div>
-            <label className="block mb-1 text-sm font-medium text-gray-700">Mensaje</label>
-            <textarea
-              name="mensaje"
-              required
-              placeholder="Cuéntame en qué puedo ayudarte..."
-              rows="5"
-              className="w-full border border-gray-300 rounded-lg p-3 focus:ring-2 focus:ring-blue-500"
-            ></textarea>
+            <label htmlFor="mensaje" className="block font-semibold mb-1">Mensaje</label>
+            <textarea id="mensaje" name="mensaje" rows="4" required className="w-full rounded px-4 py-2 bg-white"></textarea>
           </div>
 
           <button
             type="submit"
             disabled={enviando}
-            className="w-full bg-green-600 hover:bg-green-700 text-white font-semibold py-3 px-6 rounded-lg shadow transition"
+            className="w-full bg-[#e79c00] text-black font-semibold py-2 rounded hover:bg-[#f4deb7] transition"
           >
             {enviando ? "Enviando..." : "Escribir por WhatsApp"}
           </button>
