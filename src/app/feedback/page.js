@@ -125,6 +125,34 @@ export default function Feedback() {
       </main>
     );
   }
+  import { useRouter } from "next/navigation";
+
+  export default function Feedback() {
+    const router = useRouter();
   
+    const handleSubmit = (e) => {
+      e.preventDefault();
+      // Aquí podrías capturar los datos si deseas guardarlos más adelante
+      router.push("/gracias-feedback");
+    };
+  
+    return (
+      <main className="min-h-screen bg-[#000000] text-[#f4f1ec] px-4 py-12">
+        <section className="max-w-3xl mx-auto animate-fade-up">
+          <img src="/saidcoach-logo.svg" alt="Logo SaidCoach" className="mx-auto h-28 md:h-32 mb-6" />
+          <h1 className="text-3xl md:text-5xl font-bold text-center mb-4">📝 Formulario de Feedback y Objetivos</h1>
+          <p className="text-center text-[#f4deb7] mb-8">
+            Los resultados no dependen solo del entrenamiento. Tu descanso, tus hábitos y tu entorno también importan. <br />
+            Mi misión es ayudarte a lograr tus objetivos, y si quieres, puedo acompañarte en esos otros aspectos también.
+          </p>
+  
+          <form onSubmit={handleSubmit} className="space-y-8 bg-[#f4deb7] text-gray-900 p-6 rounded-2xl shadow border-2 border-[#e79c00]">
+            {/* Todo el formulario actual se mantiene igual aquí */}
+          </form>
+        </section>
+      </main>
+    );
+  }
+    
   
   
