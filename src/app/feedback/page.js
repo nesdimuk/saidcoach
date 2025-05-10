@@ -4,7 +4,10 @@ export default function Feedback() {
         <section className="max-w-3xl mx-auto animate-fade-up">
           <img src="/saidcoach-logo.svg" alt="Logo SaidCoach" className="mx-auto h-28 md:h-32 mb-6" />
           <h1 className="text-3xl md:text-5xl font-bold text-center mb-4">📝 Formulario de Feedback y Objetivos</h1>
-          <p className="text-center text-[#f4deb7] mb-8">Tu opinión importa. Gracias por compartir tu experiencia y ayudarnos a mejorar.</p>
+          <p className="text-center text-[#f4deb7] mb-8">
+            Los resultados no dependen solo del entrenamiento. Tu descanso, tus hábitos y tu entorno también importan. <br/>
+            Mi misión es ayudarte a lograr tus objetivos, y si quieres, puedo acompañarte en esos otros aspectos también.
+          </p>
   
           <form className="space-y-8 bg-[#f4deb7] text-gray-900 p-6 rounded-2xl shadow border-2 border-[#e79c00]">
             <fieldset>
@@ -85,7 +88,7 @@ export default function Feedback() {
                   <option>Ninguno</option>
                   <option>Nutrición</option>
                   <option>Hábitos</option>
-                  <option>Coaching emocional</option>
+                  <option>Higiene del sueño</option>
                   <option>Otro</option>
                 </select>
               </label>
@@ -122,5 +125,6 @@ export default function Feedback() {
       </main>
     );
   }
+  
   
   
