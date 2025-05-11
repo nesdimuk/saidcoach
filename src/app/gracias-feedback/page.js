@@ -1,3 +1,5 @@
+"use client";
+
 import { useRouter } from "next/navigation";
 import emailjs from "emailjs-com";
 import { useRef } from "react";
