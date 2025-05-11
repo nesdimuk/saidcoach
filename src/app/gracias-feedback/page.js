@@ -1,9 +1,5 @@
 "use client";
 
-import { useRouter } from "next/navigation";
-import emailjs from "emailjs-com";
-import { useRef } from "react";
-
 export default function GraciasFeedback() {
   return (
     <main className="min-h-screen bg-[#000000] text-[#f4f1ec] px-6 py-16 text-center">
@@ -33,5 +29,6 @@ export default function GraciasFeedback() {
     </main>
   );
 }
+
 
 
