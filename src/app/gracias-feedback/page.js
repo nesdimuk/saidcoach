@@ -1,5 +1,7 @@
 "use client";
 
+import Link from "next/link";
+
 export default function GraciasFeedback() {
   return (
     <main className="min-h-screen bg-[#000000] text-[#f4f1ec] px-6 py-16 text-center">
@@ -19,12 +21,12 @@ export default function GraciasFeedback() {
         <p className="text-md text-gray-300 italic mb-10">
           Estoy aquí para ayudarte, no solo a entrenar... sino a lograr resultados sostenibles.
         </p>
-        <a
+        <Link
           href="/"
           className="inline-block bg-[#e79c00] text-black font-semibold px-6 py-3 rounded hover:bg-[#f4deb7] transition"
         >
           Volver al inicio
-        </a>
+        </Link>
       </section>
     </main>
   );
