@@ -40,82 +40,95 @@ export default function Feedback() {
           className="space-y-8 bg-[#f4deb7] text-gray-900 p-6 rounded-2xl shadow border-2 border-[#e79c00]"
         >
           <div>
-            <label className="block mb-1 font-semibold">Nombre</label>
+            <label className="block mb-1 font-semibold">🧍 Tu nombre completo</label>
             <input type="text" name="nombre" required className="w-full p-3 rounded-lg bg-white" />
           </div>
 
           <div>
-            <label className="block mb-1 font-semibold">Email</label>
+            <label className="block mb-1 font-semibold">📧 Tu correo electrónico</label>
             <input type="email" name="email" required className="w-full p-3 rounded-lg bg-white" />
           </div>
 
           <div>
-            <label className="block mb-1 font-semibold">Fecha</label>
+            <label className="block mb-1 font-semibold">📅 Fecha de hoy</label>
             <input type="date" name="fecha" required className="w-full p-3 rounded-lg bg-white" />
           </div>
 
           <div>
-            <label className="block mb-1 font-semibold">Objetivo principal</label>
-            <input type="text" name="objetivo" className="w-full p-3 rounded-lg bg-white" />
+            <label className="block mb-1 font-semibold">🎯 ¿Cuál es tu objetivo principal hoy?</label>
+            <select name="objetivo" className="w-full p-3 rounded-lg bg-white">
+              <option>Perder grasa corporal</option>
+              <option>Ganar masa muscular</option>
+              <option>Mejorar rendimiento físico/deportivo</option>
+              <option>Retomar el entrenamiento tras pausa o lesión</option>
+              <option>Bienestar general y hábito</option>
+              <option>Otro</option>
+            </select>
           </div>
 
           <div>
-            <label className="block mb-1 font-semibold">Motivación</label>
-            <input type="text" name="motivacion" className="w-full p-3 rounded-lg bg-white" />
+            <label className="block mb-1 font-semibold">🔥 ¿Qué te está motivando a seguir entrenando?</label>
+            <input type="text" name="motivacion" placeholder="Ej: Quiero sentirme mejor conmigo mismo..." className="w-full p-3 rounded-lg bg-white" />
           </div>
 
           <div>
-            <label className="block mb-1 font-semibold">Desmotivación</label>
-            <textarea name="desmotivacion" className="w-full p-3 rounded-lg bg-white" rows="2" />
+            <label className="block mb-1 font-semibold">🪫 ¿Qué cosas te desmotivan o dificultan tu constancia?</label>
+            <textarea name="desmotivacion" placeholder="Ej: Falta de tiempo, me siento cansado, no veo resultados..." className="w-full p-3 rounded-lg bg-white" rows={2} />
           </div>
 
           <div>
-            <label className="block mb-1 font-semibold">¿Qué ejercicio y/o grupos musculares te agrada trabajar?</label>
+            <label className="block mb-1 font-semibold">💪 ¿Qué ejercicios o grupos musculares disfrutas trabajar?</label>
             <input type="text" name="favoritos" className="w-full p-3 rounded-lg bg-white" />
           </div>
 
           <div>
-            <label className="block mb-1 font-semibold">¿Qué ejercicios consideras lateros o preferirías cambiar o sacar de tu entrenamiento?</label>
+            <label className="block mb-1 font-semibold">🙄 ¿Qué ejercicios te cargan o preferirías cambiar?</label>
             <input type="text" name="no_gustan" className="w-full p-3 rounded-lg bg-white" />
           </div>
 
           <div>
-            <label className="block mb-1 font-semibold">¿Qué sientes que le falta a tu entrenamiento? ¿Qué podríamos mejorar?</label>
-            <textarea name="mejoras" className="w-full p-3 rounded-lg bg-white" rows="2" />
+            <label className="block mb-1 font-semibold">⚙️ ¿Qué sientes que le falta o podría mejorar tu entrenamiento?</label>
+            <textarea name="mejoras" className="w-full p-3 rounded-lg bg-white" rows={2} />
           </div>
 
           <div>
-            <label className="block mb-1 font-semibold">¿Sientes que el servicio justifica el valor que estás pagando?</label>
+            <label className="block mb-1 font-semibold">💸 ¿Crees que el servicio justifica lo que estás pagando?</label>
             <select name="valor" className="w-full p-3 rounded-lg bg-white">
-              <option value="Totalmente">Totalmente</option>
-              <option value="En parte">En parte</option>
-              <option value="No mucho">No mucho</option>
-              <option value="No">No</option>
+              <option>Sí, totalmente</option>
+              <option>En parte</option>
+              <option>No mucho</option>
+              <option>No</option>
             </select>
           </div>
 
           <div>
-            <label className="block mb-1 font-semibold">Seguimiento deseado</label>
-            <input type="text" name="seguimiento" className="w-full p-3 rounded-lg bg-white" />
+            <label className="block mb-1 font-semibold">📈 ¿Te gustaría recibir apoyo en otros aspectos?</label>
+            <select name="seguimiento" className="w-full p-3 rounded-lg bg-white">
+              <option>Ninguno</option>
+              <option>Nutrición o porciones</option>
+              <option>Organización de hábitos</option>
+              <option>Higiene del sueño</option>
+              <option>Otro</option>
+            </select>
           </div>
 
           <div>
-            <label className="block mb-1 font-semibold">¿Estás dispuesto(a) a comprometerte con algún hábito para trabajar estas semanas?</label>
+            <label className="block mb-1 font-semibold">🔁 ¿Te animas a comprometerte con algún hábito estas semanas?</label>
             <select name="compromiso" className="w-full p-3 rounded-lg bg-white">
-              <option value="Sí">Sí</option>
-              <option value="No estoy seguro">No estoy seguro</option>
-              <option value="No">No</option>
+              <option>Sí</option>
+              <option>No estoy seguro</option>
+              <option>No</option>
             </select>
           </div>
 
           <div>
-            <label className="block mb-1 font-semibold">Hábito a trabajar</label>
+            <label className="block mb-1 font-semibold">🧩 Si dijiste que sí, ¿qué hábito quieres trabajar?</label>
             <input type="text" name="habito" className="w-full p-3 rounded-lg bg-white" />
           </div>
 
           <div>
-            <label className="block mb-1 font-semibold">Mensaje final</label>
-            <textarea name="libre" className="w-full p-3 rounded-lg bg-white" rows="3" />
+            <label className="block mb-1 font-semibold">🗣️ ¿Algo más que quieras contarme o sugerirme?</label>
+            <textarea name="libre" className="w-full p-3 rounded-lg bg-white" rows={3} />
           </div>
 
           <button
@@ -129,6 +142,7 @@ export default function Feedback() {
     </main>
   );
 }
+
 
 
 

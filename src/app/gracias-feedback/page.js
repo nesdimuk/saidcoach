@@ -11,15 +11,18 @@ export default function GraciasFeedback() {
           alt="Bienestar integral"
           className="mx-auto mb-8 rounded-xl shadow-lg max-h-80 object-cover"
         />
-        <h1 className="text-4xl md:text-5xl font-bold mb-6">Gracias por responder 🙌</h1>
+        <h1 className="text-4xl md:text-5xl font-bold mb-6">¡Gracias por tu feedback! 🙌</h1>
         <p className="text-lg text-[#f4deb7] mb-6 leading-relaxed">
-          Cada respuesta que entregas me ayuda a conocerte mejor. El camino hacia tus objetivos no depende solo del entrenamiento.
+          Tus respuestas ya fueron enviadas correctamente. Cada palabra tuya me ayuda a entender mejor cómo apoyarte.
         </p>
-        <p className="text-lg text-[#f4deb7] mb-8 leading-relaxed">
-          Tu descanso, tu alimentación, tus hábitos diarios, tu entorno y hasta tu nivel de estrés influyen en los resultados. Mi rol es acompañarte en todo eso, si tú lo deseas.
+        <p className="text-lg text-[#f4deb7] mb-4 leading-relaxed">
+          Recuerda que tu progreso no depende solo del entrenamiento: también influye cómo duermes, qué comes, cómo manejas el estrés y cómo organizas tu vida.
+        </p>
+        <p className="text-lg text-[#f4deb7] mb-6 leading-relaxed">
+          Revisaré personalmente tu feedback para proponerte los mejores próximos pasos. ¡Gracias por confiar en este proceso!
         </p>
         <p className="text-md text-gray-300 italic mb-10">
-          Estoy aquí para ayudarte, no solo a entrenar... sino a lograr resultados sostenibles.
+          Estoy aquí para ayudarte, no solo a entrenar... sino a lograr resultados reales y sostenibles.
         </p>
         <Link
           href="/"
