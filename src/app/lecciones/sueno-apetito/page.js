@@ -44,10 +44,14 @@ useEffect(() => {
     const celebracionAudio = new Audio('/sonidos/celebracion.mp3');
     celebracionAudio.play();
   }
+
+  const savedNombre = localStorage.getItem('nombre');
+  const savedCorreo = localStorage.getItem('correo');
+  if (savedNombre) setNombre(savedNombre);
+  if (savedCorreo) setCorreo(savedCorreo);
 }, [guardado]);
 
-
-    const savedNombre = localStorage.getItem('nombre');
+ = localStorage.getItem('nombre');
     const savedCorreo = localStorage.getItem('correo');
     if (savedNombre) setNombre(savedNombre);
     if (savedCorreo) setCorreo(savedCorreo);
@@ -206,6 +210,7 @@ useEffect(() => {
     </div>
   );
 }
+
 
 
 
