@@ -1,5 +1,5 @@
 'use client';
-import { useState } from 'react';
+import { useState, useEffect } from 'react';
 import ReactPlayer from 'react-player';
 import Confetti from 'react-confetti';
 
@@ -15,19 +15,33 @@ export default function SuenoApetito() {
     'Aumenta tu apetito'
   ];
   const respuestaCorrecta = 'Aumenta tu apetito';
-  const preguntaAbierta = '¿Qué te hizo pensar esta lección sobre tu bienestar en el trabajo o fuera de él?';
+
+  const preguntaBienestar = '¿Cómo crees que estás manejando tu descanso actualmente?';
+  const opcionesBienestar = [
+    'Duermo bien y despierto con energía',
+    'Duermo poco pero no me afecta mucho',
+    'Siento que necesito mejorar mis hábitos de sueño',
+    'Mi descanso está muy deteriorado, debo hacer cambios ya'
+  ];
 
   const [videoTerminado, setVideoTerminado] = useState(false);
   const [respuestaSeleccionada, setRespuestaSeleccionada] = useState('');
   const [respuestaCorrectaOK, setRespuestaCorrectaOK] = useState(false);
-  const [comentario, setComentario] = useState('');
-  const [comentarioEnviado, setComentarioEnviado] = useState(false);
+  const [respuestaBienestar, setRespuestaBienestar] = useState('');
+  const [bienestarEnviado, setBienestarEnviado] = useState(false);
 
   const [nombre, setNombre] = useState('');
   const [correo, setCorreo] = useState('');
   const [puntos, setPuntos] = useState(0);
   const [guardado, setGuardado] = useState(false);
   const [feedback, setFeedback] = useState('');
+
+  useEffect(() => {
+    const savedNombre = localStorage.getItem('nombre');
+    const savedCorreo = localStorage.getItem('correo');
+    if (savedNombre) setNombre(savedNombre);
+    if (savedCorreo) setCorreo(savedCorreo);
+  }, []);
 
   const manejarFinVideo = () => {
     setPuntos((prev) => prev + 5);
@@ -45,15 +59,17 @@ export default function SuenoApetito() {
     }
   };
 
-  const manejarComentario = () => {
-    if (comentario.trim().length > 3 && !comentarioEnviado) {
-      setComentarioEnviado(true);
+  const manejarBienestar = () => {
+    if (respuestaBienestar && !bienestarEnviado) {
+      setBienestarEnviado(true);
       setPuntos((prev) => prev + 3);
     }
   };
 
   const manejarEnvioFinal = async () => {
-    console.log({ nombre, correo, leccion: nombreLeccion, respuesta: respuestaSeleccionada, comentario, puntos });
+    localStorage.setItem('nombre', nombre);
+    localStorage.setItem('correo', correo);
+    console.log({ nombre, correo, leccion: nombreLeccion, respuesta: respuestaSeleccionada, bienestar: respuestaBienestar, puntos });
     setGuardado(true);
   };
 
@@ -78,13 +94,13 @@ export default function SuenoApetito() {
           </div>
 
           <div>
-            <h2 className="font-semibold mb-2">1. {preguntaCerrada}</h2>
+            <h2 className="font-semibold mb-2 text-black">1. {preguntaCerrada}</h2>
             <div className="grid gap-2">
               {opciones.map((op) => (
                 <button
                   key={op}
                   onClick={() => manejarRespuesta(op)}
-                  className="bg-[#f4deb7] hover:bg-[#e79c00] px-4 py-2 rounded text-left"
+                  className="bg-[#f4deb7] hover:bg-[#e79c00] px-4 py-2 rounded text-left text-black"
                 >
                   {op}
                 </button>
@@ -97,31 +113,34 @@ export default function SuenoApetito() {
             <div>
               <div className="bg-[#f4f1ec] p-4 rounded">
                 <p className="font-semibold">🌟 ¡Bien hecho! ¿Te animas a llegar al puntaje perfecto (10 puntos)?</p>
-                <p className="mt-1">Solo falta una reflexión corta:</p>
+                <p className="mt-1">Solo falta una respuesta más:</p>
               </div>
 
-              <h2 className="font-semibold mt-4 mb-2">2. {preguntaAbierta}</h2>
-              <textarea
-                rows={4}
-                className="w-full border p-2 rounded"
-                value={comentario}
-                onChange={(e) => setComentario(e.target.value)}
-                placeholder="Tu reflexión..."
-                style={{ backgroundColor: '#f4f1ec', color: '#000' }}
-              />
-              {!comentarioEnviado && (
+              <h2 className="font-semibold mt-4 mb-2 text-black">2. {preguntaBienestar}</h2>
+              <div className="grid gap-2">
+                {opcionesBienestar.map((op) => (
+                  <button
+                    key={op}
+                    onClick={() => setRespuestaBienestar(op)}
+                    className={`px-4 py-2 rounded text-left text-black ${respuestaBienestar === op ? 'bg-[#e79c00] text-white' : 'bg-[#f4f1ec] hover:bg-[#f4deb7]'}`}
+                  >
+                    {op}
+                  </button>
+                ))}
+              </div>
+              {!bienestarEnviado && respuestaBienestar && (
                 <button
-                  className="px-4 py-2 mt-2 rounded text-white"
+                  className="px-4 py-2 mt-3 rounded text-white"
                   style={{ backgroundColor: '#e79c00' }}
-                  onClick={manejarComentario}
+                  onClick={manejarBienestar}
                 >
-                  Enviar comentario
+                  Enviar respuesta
                 </button>
               )}
             </div>
           )}
 
-          {comentarioEnviado && (
+          {bienestarEnviado && (
             <div className="p-4 rounded" style={{ backgroundColor: '#f4deb7' }}>
               <p className="font-semibold">🎯 ¡Perfecto! Has alcanzado los 10 puntos.</p>
               <p className="mt-1">Puedes dejar tu nombre y correo si deseas guardar tu avance.</p>
