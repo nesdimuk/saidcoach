@@ -136,7 +136,13 @@ export default function SuenoApetito() {
             {opcionesBienestar.map((op) => (
               <button
                 key={op}
-                onClick={() => { setRespuestaBienestar(op); manejarBienestar(); }}
+                onClick={() => {
+  setRespuestaBienestar(op);
+  if (!bienestarEnviado) {
+    setPuntos((prev) => prev + 3);
+    setBienestarEnviado(true);
+  }
+}}
                 className={`px-4 py-2 rounded text-left text-black ${respuestaBienestar === op ? 'bg-[#e79c00] text-white' : 'bg-[#f4f1ec] hover:bg-[#f4deb7]'}`}
               >
                 {op}
@@ -193,6 +199,7 @@ export default function SuenoApetito() {
     </div>
   );
 }
+
 
 
 
