@@ -67,7 +67,6 @@ export default function SuenoApetito() {
     if (respuestaBienestar && !bienestarEnviado) {
       setPuntos((prev) => prev + 3);
       setBienestarEnviado(true);
-      setPuntos((prev) => prev + 3);
     }
   };
 
