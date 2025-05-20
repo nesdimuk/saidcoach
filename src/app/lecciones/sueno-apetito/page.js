@@ -51,12 +51,6 @@ useEffect(() => {
   if (savedCorreo) setCorreo(savedCorreo);
 }, [guardado]);
 
- = localStorage.getItem('nombre');
-    const savedCorreo = localStorage.getItem('correo');
-    if (savedNombre) setNombre(savedNombre);
-    if (savedCorreo) setCorreo(savedCorreo);
-  }, []);
-
   const manejarFinVideo = () => {
     setPuntos((prev) => prev + 5);
     setVideoTerminado(true);
@@ -210,6 +204,7 @@ useEffect(() => {
     </div>
   );
 }
+
 
 
 
