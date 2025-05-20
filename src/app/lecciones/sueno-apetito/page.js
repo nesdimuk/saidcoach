@@ -144,7 +144,7 @@ export default function SuenoApetito() {
               </button>
             ))}
           </div>
-          }
+          
         </div>
       )}
 
@@ -194,6 +194,7 @@ export default function SuenoApetito() {
     </div>
   );
 }
+
 
 
 
