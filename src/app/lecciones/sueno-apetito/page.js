@@ -65,6 +65,7 @@ export default function SuenoApetito() {
 
   const manejarBienestar = () => {
     if (respuestaBienestar && !bienestarEnviado) {
+      setPuntos((prev) => prev + 3);
       setBienestarEnviado(true);
       setPuntos((prev) => prev + 3);
     }
@@ -136,7 +137,7 @@ export default function SuenoApetito() {
             {opcionesBienestar.map((op) => (
               <button
                 key={op}
-                onClick={() => setRespuestaBienestar(op)}
+                onClick={() => { setRespuestaBienestar(op); manejarBienestar(); }}
                 className={`px-4 py-2 rounded text-left text-black ${respuestaBienestar === op ? 'bg-[#e79c00] text-white' : 'bg-[#f4f1ec] hover:bg-[#f4deb7]'}`}
               >
                 {op}
@@ -158,7 +159,7 @@ export default function SuenoApetito() {
       {bienestarEnviado && (
         <div className="mt-8 p-4 rounded text-black" style={{ backgroundColor: '#f4deb7' }}>
           <p className="font-semibold">🎯 ¡Perfecto! Has alcanzado los 10 puntos y completado el desafío. 🥇</p>
-          <p className="mt-1">Puedes dejar tu nombre y correo si deseas guardar tu avance.</p>
+          <p className="mt-1">Puedes dejar tu nombre y correo si deseas guardar tu avance. Estos datos se recordarán en futuras lecciones.</p>
 
           <input
             type="text"
