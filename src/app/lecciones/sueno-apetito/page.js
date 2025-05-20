@@ -94,7 +94,7 @@ export default function SuenoApetito() {
           </div>
 
           <div>
-            <h2 className="font-semibold mb-2 text-black">1. {preguntaCerrada}</h2>
+            <h2 className="font-semibold mb-2" style={{ color: '#e79c00' }}>1. {preguntaCerrada}</h2>
             <div className="grid gap-2">
               {opciones.map((op) => (
                 <button
@@ -177,7 +177,7 @@ export default function SuenoApetito() {
           )}
 
           <div className="mt-6 p-4 rounded text-center" style={{ backgroundColor: '#f4f1ec' }}>
-            <h3 className="text-xl font-bold text-black">
+            <h3 className="text-xl font-bold" style={{ color: '#e79c00' }}>
               🎯 Puntaje total acumulado: {puntos} puntos
             </h3>
           </div>
@@ -188,6 +188,7 @@ export default function SuenoApetito() {
     </div>
   );
 }
+
 
 
 
