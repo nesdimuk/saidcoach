@@ -116,7 +116,7 @@ export default function SuenoApetito() {
                 <p className="mt-1">Solo falta una respuesta más:</p>
               </div>
 
-              <h2 className="font-semibold mt-4 mb-2 text-black">2. {preguntaBienestar}</h2>
+              <h2 className="font-semibold mt-4 mb-2" style={{ color: '#e79c00' }}>2. {preguntaBienestar}</h2>
               <div className="grid gap-2">
                 {opcionesBienestar.map((op) => (
                   <button
@@ -188,6 +188,7 @@ export default function SuenoApetito() {
     </div>
   );
 }
+
 
 
 
