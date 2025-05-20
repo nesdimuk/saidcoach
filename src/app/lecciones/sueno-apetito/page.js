@@ -160,9 +160,13 @@ useEffect(() => {
 
       {bienestarEnviado && (
         <div className="mt-8 p-4 rounded text-black" style={{ backgroundColor: '#f4deb7' }}>
-          <p className="font-semibold">🎯 ¡Perfecto! Has alcanzado los 10 puntos y completado el desafío. 🥇</p>
-              {guardado && <Confetti />}
+ <p className="text-xl font-semibold mb-4 animate-bounce" style={{ color: '#e79c00' }}>
+  🎊 ¡Lo lograste! Has acumulado el puntaje máximo.<br />
+  Ahora guarda tus puntos y deja tu nombre para futuras lecciones.
+</p>
 
+          <Confetti />
+              
           <input
             type="text"
             className="border p-2 mb-2 w-full rounded"
