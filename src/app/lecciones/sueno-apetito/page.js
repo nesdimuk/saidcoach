@@ -145,13 +145,7 @@ export default function SuenoApetito() {
             ))}
           </div>
           {!bienestarEnviado && respuestaBienestar && (
-            <button
-              className="px-4 py-2 mt-3 rounded text-white"
-              style={{ backgroundColor: '#e79c00' }}
-              onClick={manejarBienestar}
-            >
-              Enviar respuesta
-            </button>
+            
           )}
         </div>
       )}
@@ -159,7 +153,7 @@ export default function SuenoApetito() {
       {bienestarEnviado && (
         <div className="mt-8 p-4 rounded text-black" style={{ backgroundColor: '#f4deb7' }}>
           <p className="font-semibold">🎯 ¡Perfecto! Has alcanzado los 10 puntos y completado el desafío. 🥇</p>
-          <p className="mt-1">Puedes dejar tu nombre y correo si deseas guardar tu avance. Estos datos se recordarán en futuras lecciones.</p>
+          <p className="mt-1">🎁 ¡Has alcanzado el puntaje máximo! Si quieres guardar tus puntos en tu bolsa personal, completa tus datos. Se recordarán para la próxima lección.</p>
 
           <input
             type="text"
@@ -181,9 +175,7 @@ export default function SuenoApetito() {
               className="text-white px-4 py-2 rounded"
               style={{ backgroundColor: '#e79c00' }}
               onClick={manejarEnvioFinal}
-            >
-              Guardar mi resultado
-            </button>
+            >Guardar mis puntos en mi bolsa 🧺</button>
           ) : (
             <p className="mt-2 font-semibold text-green-700">
               ✅ Tus respuestas fueron guardadas. ¡Gracias!
@@ -204,6 +196,7 @@ export default function SuenoApetito() {
     </div>
   );
 }
+
 
 
 
