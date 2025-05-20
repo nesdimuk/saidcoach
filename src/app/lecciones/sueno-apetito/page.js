@@ -144,9 +144,7 @@ export default function SuenoApetito() {
               </button>
             ))}
           </div>
-          {!bienestarEnviado && respuestaBienestar && (
-            
-          )}
+          }
         </div>
       )}
 
@@ -196,6 +194,7 @@ export default function SuenoApetito() {
     </div>
   );
 }
+
 
 
 
