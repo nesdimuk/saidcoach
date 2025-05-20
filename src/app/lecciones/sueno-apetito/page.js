@@ -40,6 +40,8 @@ export default function SuenoApetito() {
   const [feedback, setFeedback] = useState('');
 
   useEffect(() => {
+    const celebracionAudio = new Audio('/sonidos/celebracion.mp3');
+    if (bienestarEnviado) celebracionAudio.play();
     const savedNombre = localStorage.getItem('nombre');
     const savedCorreo = localStorage.getItem('correo');
     if (savedNombre) setNombre(savedNombre);
@@ -156,8 +158,7 @@ export default function SuenoApetito() {
       {bienestarEnviado && (
         <div className="mt-8 p-4 rounded text-black" style={{ backgroundColor: '#f4deb7' }}>
           <p className="font-semibold">🎯 ¡Perfecto! Has alcanzado los 10 puntos y completado el desafío. 🥇</p>
-          <p className="mt-1">🎁 ¡Has alcanzado el puntaje máximo! Si quieres guardar tus puntos en tu bolsa personal, completa tus datos. Se recordarán para la próxima lección.</p>
-
+          $1<Confetti />
           <input
             type="text"
             className="border p-2 mb-2 w-full rounded"
@@ -195,10 +196,11 @@ export default function SuenoApetito() {
         </div>
       )}
 
-      {guardado && <Confetti />}
+      
     </div>
   );
 }
+
 
 
 
