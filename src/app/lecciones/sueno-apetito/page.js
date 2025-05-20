@@ -7,7 +7,7 @@ export default function SuenoApetito() {
   const nombreLeccion = 'sueno-apetito';
   const nombreVideo = 'sueno_apetito.mp4';
 
-  const preguntaCerrada = '¿Qué ocurre cuando no duermes?';
+  const preguntaCerrada = '¿Qué ocurre cuando duermes poco?';
   const opciones = [
     'Amaneces tranquilo',
     'Tienes poco apetito',
@@ -188,5 +188,6 @@ export default function SuenoApetito() {
     </div>
   );
 }
+
 
 
