@@ -24,36 +24,31 @@ export default function SuenoApetito() {
     'Mi descanso está muy deteriorado, debo hacer cambios ya'
   ];
 
-  const [videoTerminado, setVideoTerminado] = useState(false);
-  const [mostrarPregunta1, setMostrarPregunta1] = useState(false);
-  const [mostrarPregunta2, setMostrarPregunta2] = useState(false);
-
+  const [pantalla, setPantalla] = useState(1);
   const [respuestaSeleccionada, setRespuestaSeleccionada] = useState('');
   const [respuestaCorrectaOK, setRespuestaCorrectaOK] = useState(false);
   const [respuestaBienestar, setRespuestaBienestar] = useState('');
-  const [bienestarEnviado, setBienestarEnviado] = useState(false);
+  const [puntos, setPuntos] = useState(0);
 
   const [nombre, setNombre] = useState('');
   const [correo, setCorreo] = useState('');
-  const [puntos, setPuntos] = useState(0);
   const [guardado, setGuardado] = useState(false);
-  const [feedback, setFeedback] = useState('');
 
-useEffect(() => {
-  if (guardado) {
-    const celebracionAudio = new Audio('/sonidos/celebracion.mp3');
-    celebracionAudio.play();
-  }
+  useEffect(() => {
+    if (guardado) {
+      const celebracionAudio = new Audio('/sonidos/celebracion.mp3');
+      celebracionAudio.play();
+    }
 
-  const savedNombre = localStorage.getItem('nombre');
-  const savedCorreo = localStorage.getItem('correo');
-  if (savedNombre) setNombre(savedNombre);
-  if (savedCorreo) setCorreo(savedCorreo);
-}, [guardado]);
+    const savedNombre = localStorage.getItem('nombre');
+    const savedCorreo = localStorage.getItem('correo');
+    if (savedNombre) setNombre(savedNombre);
+    if (savedCorreo) setCorreo(savedCorreo);
+  }, [guardado]);
 
   const manejarFinVideo = () => {
     setPuntos((prev) => prev + 5);
-    setVideoTerminado(true);
+    setPantalla(2);
   };
 
   const manejarRespuesta = (opcion) => {
@@ -61,21 +56,16 @@ useEffect(() => {
     if (opcion === respuestaCorrecta && !respuestaCorrectaOK) {
       setRespuestaCorrectaOK(true);
       setPuntos((prev) => prev + 2);
-      setFeedback('✅ ¡Correcto! Ya llevas 7 puntos.');
-      setMostrarPregunta2(true);
-    } else if (!respuestaCorrectaOK) {
-      setFeedback('❌ Incorrecto. Intenta nuevamente.');
     }
   };
 
-  const manejarBienestar = () => {
-    if (respuestaBienestar && !bienestarEnviado) {
-      setPuntos((prev) => prev + 3);
-      setBienestarEnviado(true);
-    }
+  const manejarBienestar = (opcion) => {
+    setRespuestaBienestar(opcion);
+    setPuntos((prev) => prev + 3);
+    setPantalla(4);
   };
 
-  const manejarEnvioFinal = async () => {
+  const manejarEnvioFinal = () => {
     localStorage.setItem('nombre', nombre);
     localStorage.setItem('correo', correo);
     console.log({ nombre, correo, leccion: nombreLeccion, respuesta: respuestaSeleccionada, bienestar: respuestaBienestar, puntos });
@@ -88,85 +78,78 @@ useEffect(() => {
         Lección: Sueño y Apetito
       </h1>
 
-      <ReactPlayer
-        url={`/videos/${nombreVideo}`}
-        controls
-        width="100%"
-        onEnded={manejarFinVideo}
-      />
+      {pantalla === 1 && (
+        <ReactPlayer
+          url={`/videos/${nombreVideo}`}
+          controls
+          width="100%"
+          onEnded={manejarFinVideo}
+        />
+      )}
 
-      {videoTerminado && !mostrarPregunta1 && (
-        <div className="mt-8 space-y-6 text-black bg-[#f4deb7] p-4 rounded">
-          <p className="font-semibold">🎉 ¡Has ganado 5 puntos solo por ver este video! ¡Buen comienzo! 🚀</p>
-          <p className="mt-1">Presiona continuar para intentar ganar 2 puntos más. 💡</p>
+      {pantalla === 2 && (
+        <div className="mt-8 space-y-4">
+          <p className="font-semibold text-lg" style={{ color: '#4b5563' }}>
+            🎉 ¡Has ganado 5 puntos! ¿Vamos por más?
+          </p>
           <button
-            onClick={() => setMostrarPregunta1(true)}
-            className="px-4 py-2 mt-2 rounded text-white"
+            className="px-4 py-2 rounded text-white"
             style={{ backgroundColor: '#e79c00' }}
+            onClick={() => setPantalla(3)}
           >
-            Continuar
+            Sigue sumando 🔓
           </button>
         </div>
       )}
 
-      {mostrarPregunta1 && (
-        <div className="mt-8 space-y-6 text-black">
-          <div>
-            <h2 className="font-semibold mb-2" style={{ color: '#e79c00' }}>1. {preguntaCerrada}</h2>
-            <div className="grid gap-2">
-              {opciones.map((op) => (
-                <button
-                  key={op}
-                  onClick={() => manejarRespuesta(op)}
-                  className="bg-[#f4deb7] hover:bg-[#e79c00] px-4 py-2 rounded text-left text-black"
-                >
-                  {op}
-                </button>
-              ))}
-            </div>
-            <p className="mt-2 text-md font-medium">{feedback}</p>
-          </div>
-        </div>
-      )}
-
-      {mostrarPregunta2 && (
-        <div className="mt-8 space-y-6 text-black">
-          <div className="bg-[#f4f1ec] p-4 rounded">
-            <p className="font-semibold">🌟 ¡Estás a punto de lograr el puntaje perfecto! 🏆</p>
-            <p className="mt-1">Solo una última pregunta y habrás completado el desafío. 🔥</p>
-          </div>
-
-          <h2 className="font-semibold mt-4 mb-2" style={{ color: '#e79c00' }}>2. {preguntaBienestar}</h2>
+      {pantalla === 3 && (
+        <div className="mt-8 space-y-4 text-black">
+          <h2 className="text-lg font-semibold" style={{ color: '#e79c00' }}>{preguntaCerrada}</h2>
           <div className="grid gap-2">
-            {opcionesBienestar.map((op) => (
+            {opciones.map((op) => (
               <button
                 key={op}
                 onClick={() => {
-  setRespuestaBienestar(op);
-  if (!bienestarEnviado) {
-    setPuntos((prev) => prev + 3);
-    setBienestarEnviado(true);
-  }
-}}
-                className={`px-4 py-2 rounded text-left text-black ${respuestaBienestar === op ? 'bg-[#e79c00] text-white' : 'bg-[#f4f1ec] hover:bg-[#f4deb7]'}`}
+                  manejarRespuesta(op);
+                  if (op === respuestaCorrecta) setPantalla(5);
+                }}
+                className="bg-[#f4deb7] hover:bg-[#e79c00] px-4 py-2 rounded text-left"
               >
                 {op}
               </button>
             ))}
           </div>
-          
         </div>
       )}
 
-      {bienestarEnviado && (
-        <div className="mt-8 p-4 rounded text-black" style={{ backgroundColor: '#f4deb7' }}>
- <p className="text-xl font-semibold mb-4 animate-bounce" style={{ color: '#e79c00' }}>
-  🎊 ¡Lo lograste! Has acumulado el puntaje máximo.<br />
-  Ahora guarda tus puntos y deja tu nombre para futuras lecciones.
-</p>
+      {pantalla === 5 && (
+        <div className="mt-8 space-y-4 text-black">
+          <h2 className="text-lg font-semibold" style={{ color: '#e79c00' }}>{preguntaBienestar}</h2>
+          <div className="grid gap-2">
+            {opcionesBienestar.map((op) => (
+              <button
+                key={op}
+                onClick={() => manejarBienestar(op)}
+                className="bg-[#f4f1ec] hover:bg-[#f4deb7] px-4 py-2 rounded text-left"
+              >
+                {op}
+              </button>
+            ))}
+          </div>
+        </div>
+      )}
 
-          <Confetti />
-              
+      {pantalla === 4 && (
+        <div className="mt-8 p-4 rounded text-black bg-[#f4deb7]">
+          <p className="text-xl font-bold animate-bounce mb-3" style={{ color: '#e79c00' }}>
+            🏅 ¡Desafío completado!
+          </p>
+          <p className="text-md mb-4" style={{ color: '#374151' }}>
+            Guarda tus puntos para el ranking y futuras misiones. 👇
+          </p>
+
+          {guardado && <Confetti />}
+
           <input
             type="text"
             className="border p-2 mb-2 w-full rounded"
@@ -187,7 +170,9 @@ useEffect(() => {
               className="text-white px-4 py-2 rounded"
               style={{ backgroundColor: '#e79c00' }}
               onClick={manejarEnvioFinal}
-            >Guardar mis puntos en mi bolsa 🧺</button>
+            >
+              Guardar mis puntos en mi bolsa 🧺
+            </button>
           ) : (
             <p className="mt-2 font-semibold text-green-700">
               ✅ Tus respuestas fueron guardadas. ¡Gracias!
@@ -196,15 +181,11 @@ useEffect(() => {
         </div>
       )}
 
-      {(videoTerminado || mostrarPregunta2) && (
-        <div className="mt-6 p-4 rounded text-center" style={{ backgroundColor: '#f4f1ec' }}>
-          <h3 className="text-xl font-bold" style={{ color: '#e79c00' }}>
-            🎯 Puntaje total acumulado: {puntos} puntos
-          </h3>
-        </div>
-      )}
-
-      
+      <div className="mt-6 p-4 rounded text-center" style={{ backgroundColor: '#f4f1ec' }}>
+        <h3 className="text-xl font-bold" style={{ color: '#e79c00' }}>
+          🎯 Puntaje total acumulado: {puntos} puntos
+        </h3>
+      </div>
     </div>
   );
 }
