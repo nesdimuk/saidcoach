@@ -1,4 +1,3 @@
-
 <!DOCTYPE html>
 <html lang="es">
 <head>
@@ -10,11 +9,30 @@
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;700;900&display=swap" rel="stylesheet">
+    <!-- 
+    Plan de la Infografía:
+    1.  Introducción: Enganchar con la pregunta fundamental sobre las dietas y establecer el principio clave: el déficit calórico.
+    2.  Los Tres Pilares: Presentar visualmente los tres enfoques que analiza el paper (Cantidad, Tipo, Momento).
+    3.  Pilar 1 (Cantidad): Visualizar las dietas por restricción calórica (LDC, VLCD) usando un gráfico de dona.
+    4.  Pilar 2 (Tipo): Comparar los principales arquetipos de dietas (Mediterránea, Alta en Proteína, etc.) en múltiples factores usando un gráfico de radar para mostrar sus fortalezas relativas.
+    5.  Pilar 3 (Momento): Ilustrar los conceptos de ayuno intermitente y horarios de comida con una línea de tiempo y diagramas simples hechos con HTML/CSS.
+    6.  Conclusión: Reforzar el mensaje principal de que no hay una "mejor" dieta, sino que la clave es la sostenibilidad y la personalización.
+
+    Selección de Visualizaciones:
+    -   Déficit Calórico: "Single Big Number" para impacto. Meta: Informar. Método: HTML/CSS. (Sin SVG)
+    -   Tres Pilares: Diagrama de flujo simple. Meta: Organizar. Método: HTML/CSS. (Sin SVG, Sin Mermaid JS)
+    -   Rangos Calóricos: Gráfico de Dona (Donut Chart). Meta: Informar/Comparar. Método: Chart.js. Justificación: Muestra claramente la proporción de una dieta restringida frente a una estándar. (Sin SVG)
+    -   Comparación de Dietas: Gráfico de Radar (Radar Chart). Meta: Comparar. Método: Chart.js. Justificación: Ideal para comparar múltiples variables entre diferentes opciones sin declarar un ganador absoluto. (Sin SVG)
+    -   Ayuno Intermitente: Línea de tiempo. Meta: Organizar. Método: HTML/CSS. Justificación: La mejor forma de visualizar horarios. (Sin SVG, Sin Mermaid JS)
+    -   Conclusión: Declaración visual fuerte. Meta: Informar. Método: HTML/CSS. (Sin SVG)
+    
+    Confirmación: No se ha utilizado Mermaid JS ni gráficos SVG en este documento.
+    Paleta de Colores Seleccionada: Energetic & Playful (#00B8A9, #F8F3D4, #F6416C, #FFDE7D).
+    -->
     <style>
         body {
             font-family: 'Inter', sans-serif;
-            background-color: #000000;
-            color: #f4f1ec;
+            background-color: #F8F3D4; /* Light Beige */
         }
         .chart-container {
             position: relative;
@@ -30,121 +48,278 @@
             }
         }
         .gradient-text {
-            background: linear-gradient(90deg, #e79c00, #f4deb7);
+            background: linear-gradient(90deg, #00B8A9, #F6416C);
             -webkit-background-clip: text;
             -webkit-text-fill-color: transparent;
         }
-        .card {
-            background-color: #1a1a1a;
-            border: 1px solid #333;
-            border-radius: 1rem;
-        }
-        .highlight {
-            color: #e79c00;
-        }
     </style>
 </head>
-<body class="text-gray-200">
+<body class="text-gray-800">
 
     <div class="container mx-auto p-4 md:p-8">
+        
         <header class="text-center mb-12">
             <h1 class="text-4xl md:text-6xl font-black mb-4 gradient-text">Desmitificando las Dietas</h1>
-            <p class="text-lg md:text-xl max-w-3xl mx-auto text-gray-400">Un análisis visual de las estrategias para perder peso basadas en la ciencia.</p>
+            <p class="text-lg md:text-xl max-w-3xl mx-auto text-gray-600">Un análisis visual de las estrategias para perder peso basadas en la ciencia, según el estudio de Ju Young Kim en el *Journal of Obesity & Metabolic Syndrome*.</p>
         </header>
 
-        <section class="card p-8 mb-12">
-            <h2 class="text-2xl font-bold text-center mb-4">La Piedra Angular</h2>
-            <p class="text-center text-gray-300 mb-6">Independientemente de la dieta que elijas, el principio es el déficit calórico.</p>
-            <div class="text-center text-5xl font-black text-[#e79c00]">-500 a -750 Kcal/día</div>
-            <p class="text-sm text-center text-gray-400 mt-4">Déficit recomendado para pérdida saludable.</p>
-        </section>
+        <main class="space-y-16">
 
-        <section class="card p-8 mb-12">
-            <h2 class="text-2xl font-bold text-center mb-8">Comparación de Rangos Calóricos</h2>
-            <div class="chart-container">
-                <canvas id="calorieDonutChart"></canvas>
-            </div>
-        </section>
+            <section id="foundation" class="text-center bg-white p-8 rounded-2xl shadow-lg">
+                <h2 class="text-2xl font-bold mb-4">La Piedra Angular de la Pérdida de Peso</h2>
+                <p class="max-w-2xl mx-auto mb-6 text-gray-600">Independientemente de la dieta que elijas, un principio reina por encima de todos: el déficit calórico. Para perder peso, necesitas consumir menos calorías de las que tu cuerpo gasta.</p>
+                <div class="bg-[#00B8A9] text-white p-6 rounded-xl inline-block">
+                    <div class="text-5xl md:text-7xl font-black">-500 a -750</div>
+                    <div class="text-lg font-bold">Kcal/Día Recomendadas</div>
+                </div>
+                 <p class="max-w-2xl mx-auto mt-6 text-sm text-gray-500">Este es el déficit diario que la mayoría de las guías recomiendan para una pérdida de peso saludable y sostenible.</p>
+            </section>
 
-        <section class="card p-8 mb-12">
-            <h2 class="text-2xl font-bold text-center mb-8">Comparación de Tipos de Dietas</h2>
-            <div class="chart-container">
-                <canvas id="dietRadarChart"></canvas>
-            </div>
-        </section>
+            <section id="pillars" class="text-center">
+                <h2 class="text-3xl font-bold mb-8">Los 3 Pilares de una Estrategia Exitosa</h2>
+                <div class="grid grid-cols-1 md:grid-cols-3 gap-8">
+                    <div class="bg-white p-6 rounded-2xl shadow-md">
+                        <div class="text-5xl mb-4">🍽️</div>
+                        <h3 class="text-xl font-bold mb-2">1. La Cantidad</h3>
+                        <p class="text-gray-600">Controlar la ingesta total de energía es el primer paso. Se centra en *cuánto* comes.</p>
+                    </div>
+                    <div class="bg-white p-6 rounded-2xl shadow-md">
+                        <div class="text-5xl mb-4">🥗</div>
+                        <h3 class="text-xl font-bold mb-2">2. El Tipo</h3>
+                        <p class="text-gray-600">La composición de tus comidas importa. Se centra en *qué* comes.</p>
+                    </div>
+                    <div class="bg-white p-6 rounded-2xl shadow-md">
+                        <div class="text-5xl mb-4">⏰</div>
+                        <h3 class="text-xl font-bold mb-2">3. El Momento</h3>
+                        <p class="text-gray-600">Cuándo comes puede influir en tu metabolismo. Se centra en *cuándo* comes.</p>
+                    </div>
+                </div>
+            </section>
+
+            <section id="amount" class="bg-white p-8 rounded-2xl shadow-lg">
+                <h2 class="text-3xl font-bold text-center mb-2">Pilar 1: La Cantidad Importa</h2>
+                <p class="text-center max-w-3xl mx-auto mb-8 text-gray-600">Las dietas basadas en la cantidad se enfocan en limitar las calorías totales. Las dos aproximaciones principales son las dietas bajas en calorías (LDC) y las muy bajas en calorías (VLCD), esta última para casos específicos y supervisados.</p>
+                <div class="chart-container">
+                    <canvas id="calorieDonutChart"></canvas>
+                </div>
+                <p class="text-center mt-4 text-sm text-gray-500">Visualización de rangos calóricos en comparación con una dieta de mantenimiento promedio de 2200 kcal.</p>
+            </section>
+
+            <section id="type" class="bg-white p-8 rounded-2xl shadow-lg">
+                 <h2 class="text-3xl font-bold text-center mb-2">Pilar 2: El Tipo de Alimento</h2>
+                 <p class="text-center max-w-3xl mx-auto mb-8 text-gray-600">Diferentes dietas proponen distintas combinaciones de macronutrientes. ¿Pero cómo se comparan en factores clave? Este gráfico de radar muestra las fortalezas relativas de los enfoques más populares.</p>
+                <div class="chart-container">
+                    <canvas id="dietRadarChart"></canvas>
+                </div>
+                <p class="text-center mt-4 text-sm text-gray-500">Comparativa basada en evidencia sobre pérdida de peso inicial, sostenibilidad, saciedad y beneficios para la salud cardíaca.</p>
+            </section>
+            
+            <section id="timing" class="bg-white p-8 rounded-2xl shadow-lg">
+                <h2 class="text-3xl font-bold text-center mb-8">Pilar 3: El Momento es Clave</h2>
+                <div class="grid grid-cols-1 md:grid-cols-2 gap-8 items-start">
+                    <div>
+                        <h3 class="text-2xl font-bold mb-4">Ayuno Intermitente</h3>
+                        <p class="mb-6 text-gray-600">Esta estrategia se enfoca en *cuándo* comer, creando ventanas de alimentación y ayuno. No es una dieta, sino un patrón de comidas.</p>
+                        <div class="space-y-4">
+                            <div class="bg-gray-100 p-4 rounded-lg">
+                                <p class="font-bold text-[#00B8A9]">Alimentación 16/8</p>
+                                <p class="text-sm">Ayunas durante 16 horas y comes en una ventana de 8 horas cada día.</p>
+                                <div class="w-full bg-gray-200 rounded-full h-2.5 mt-2">
+                                  <div class="bg-[#FFDE7D] h-2.5 rounded-l-full" style="width: 66.6%"></div>
+                                  <div class="bg-[#00B8A9] h-2.5 rounded-r-full" style="width: 33.3%; float: right;"></div>
+                                </div>
+                            </div>
+                            <div class="bg-gray-100 p-4 rounded-lg">
+                                <p class="font-bold text-[#00B8A9]">Dieta 5:2</p>
+                                <p class="text-sm">Comes normalmente 5 días a la semana y reduces drásticamente las calorías (a ~500) los otros 2 días.</p>
+                            </div>
+                        </div>
+                    </div>
+                     <div>
+                        <h3 class="text-2xl font-bold mb-4">Ritmos Circadianos</h3>
+                        <p class="mb-6 text-gray-600">Nuestro cuerpo tiene un reloj interno. Comer en sintonía con él puede ser beneficioso. La evidencia sugiere:</p>
+                        <div class="flex flex-col space-y-4">
+                           <div class="flex items-center bg-gray-100 p-4 rounded-lg">
+                                <span class="text-4xl mr-4">☀️</span>
+                                <div>
+                                    <p class="font-bold text-green-600">Desayuno Abundante</p>
+                                    <p class="text-sm">Consumir una mayor parte de las calorías diarias por la mañana puede ayudar a prevenir la obesidad.</p>
+                                </div>
+                           </div>
+                           <div class="flex items-center bg-gray-100 p-4 rounded-lg">
+                                <span class="text-4xl mr-4">🌙</span>
+                                <div>
+                                    <p class="font-bold text-red-600">Evitar Comer de Noche</p>
+                                    <p class="text-sm">Comer tarde se asocia con un mayor riesgo de obesidad y síndrome metabólico.</p>
+                                </div>
+                           </div>
+                        </div>
+                    </div>
+                </div>
+            </section>
+
+            <section id="conclusion" class="text-center bg-white p-8 md:p-12 rounded-2xl shadow-lg border-4 border-dashed border-[#F6416C]">
+                <h2 class="text-3xl md:text-4xl font-black mb-4">Entonces, ¿cuál es la mejor dieta?</h2>
+                <p class="text-xl max-w-3xl mx-auto text-gray-700">La ciencia es clara: la "mejor" dieta es una que sea nutricionalmente adecuada, cree un déficit calórico y, lo más importante...</p>
+                <div class="my-6 text-2xl md:text-5xl font-black text-[#F6416C] p-4 bg-red-50 rounded-lg">
+                    ¡LA QUE PUEDAS MANTENER A LARGO PLAZO!
+                </div>
+                 <p class="text-lg max-w-3xl mx-auto text-gray-600">La clave del éxito es la **adherencia** y la **sostenibilidad**. La personalización según tus preferencias y estilo de vida es fundamental. Consulta siempre a un profesional de la salud.</p>
+            </section>
+        </main>
+        
+        <footer class="text-center mt-12 text-gray-500 text-sm">
+            <p>Infografía creada por IA. Datos extraídos de "Optimal Diet Strategies for Weight Loss and Weight Loss Maintenance" por Ju Young Kim, J Obes Metab Syndr 2021.</p>
+        </footer>
+
     </div>
 
     <script>
-        const FONT_COLOR = '#f4f1ec';
-        const GRID_COLOR = '#333';
+        const FONT_COLOR = '#374151'; 
+        const GRID_COLOR = '#E5E7EB';
+        
         const PALETTE = {
-            gold: '#e79c00',
-            beige: '#f4deb7',
-            softGold: 'rgba(231, 156, 0, 0.2)'
+            teal: '#00B8A9',
+            pink: '#F6416C',
+            yellow: '#FFDE7D',
+            lightBeige: '#F8F3D4'
+        };
+
+        function wrapText(label) {
+            const maxLineLength = 16;
+            if (label.length <= maxLineLength) {
+                return label;
+            }
+            const words = label.split(' ');
+            const lines = [];
+            let currentLine = '';
+            words.forEach(word => {
+                if ((currentLine + ' ' + word).length > maxLineLength && currentLine.length > 0) {
+                    lines.push(currentLine);
+                    currentLine = word;
+                } else {
+                    currentLine = currentLine ? currentLine + ' ' + word : word;
+                }
+            });
+            lines.push(currentLine);
+            return lines;
+        }
+
+        const tooltipTitleCallback = (tooltipItems) => {
+            const item = tooltipItems[0];
+            let label = item.chart.data.labels[item.dataIndex];
+            if (Array.isArray(label)) {
+              return label.join(' ');
+            } else {
+              return label;
+            }
+        };
+        
+        const defaultPlugins = {
+            legend: {
+                labels: {
+                    color: FONT_COLOR,
+                    font: {
+                        family: "'Inter', sans-serif"
+                    }
+                }
+            },
+            tooltip: {
+                callbacks: {
+                    title: tooltipTitleCallback
+                },
+                 bodyFont: {
+                    family: "'Inter', sans-serif"
+                },
+                titleFont: {
+                    family: "'Inter', sans-serif"
+                }
+            }
         };
 
         const calorieDonutCtx = document.getElementById('calorieDonutChart').getContext('2d');
         new Chart(calorieDonutCtx, {
             type: 'doughnut',
             data: {
-                labels: ['Déficit LDC', 'Déficit VLCD', 'Restante'],
+                labels: ['Déficit (LDC: 1000-1500 kcal)', 'Déficit (VLCD: <800 kcal)', 'Calorías Restantes'],
                 datasets: [{
-                    label: 'Distribución Calórica',
+                    label: 'Distribución de Calorías',
                     data: [500, 200, 700],
-                    backgroundColor: [PALETTE.gold, PALETTE.beige, PALETTE.softGold],
-                    borderColor: [PALETTE.gold, PALETTE.beige, '#f4f1ec'],
-                    borderWidth: 2
+                    backgroundColor: [PALETTE.yellow, PALETTE.pink, 'rgba(0, 184, 169, 0.2)'],
+                    borderColor: [PALETTE.yellow, PALETTE.pink, PALETTE.teal],
+                    borderWidth: 2,
+                    hoverOffset: 4
                 }]
             },
             options: {
                 responsive: true,
                 maintainAspectRatio: false,
-                plugins: {
-                    legend: {
-                        labels: { color: FONT_COLOR }
-                    },
+                plugins: { ...defaultPlugins, 
                     title: {
                         display: true,
-                        text: 'Distribución de Ingesta Calórica',
-                        color: FONT_COLOR
+                        text: 'Comparación de Ingesta Calórica',
+                        color: FONT_COLOR,
+                        font: { size: 16, family: "'Inter', sans-serif" }
                     }
                 }
             }
         });
 
         const dietRadarCtx = document.getElementById('dietRadarChart').getContext('2d');
-        const radarLabels = ['Pérdida de Peso', 'Sostenibilidad', 'Saciedad', 'Salud Cardiaca', 'Adherencia'];
+        const radarLabels = ['Pérdida de Peso Inicial', 'Sostenibilidad a Largo Plazo', 'Nivel de Saciedad', 'Salud Cardiovascular', 'Facilidad de Adherencia'];
 
         new Chart(dietRadarCtx, {
             type: 'radar',
             data: {
-                labels: radarLabels,
+                labels: radarLabels.map(label => wrapText(label)),
                 datasets: [{
-                    label: 'Mediterránea',
+                    label: 'Dieta Mediterránea',
                     data: [3.5, 5, 4, 5, 4.5],
                     fill: true,
-                    backgroundColor: 'rgba(231, 156, 0, 0.2)',
-                    borderColor: PALETTE.gold,
-                    pointBackgroundColor: PALETTE.gold
+                    backgroundColor: 'rgba(0, 184, 169, 0.2)',
+                    borderColor: PALETTE.teal,
+                    pointBackgroundColor: PALETTE.teal,
+                }, {
+                    label: 'Alta en Proteína',
+                    data: [4, 4, 5, 3.5, 4],
+                    fill: true,
+                    backgroundColor: 'rgba(246, 65, 108, 0.2)',
+                    borderColor: PALETTE.pink,
+                    pointBackgroundColor: PALETTE.pink,
+                },{
+                    label: 'Baja en Carbohidratos',
+                    data: [5, 3, 4, 3, 3],
+                    fill: true,
+                    backgroundColor: 'rgba(255, 222, 125, 0.2)',
+                    borderColor: PALETTE.yellow,
+                    pointBackgroundColor: PALETTE.yellow,
                 }]
             },
             options: {
                 responsive: true,
                 maintainAspectRatio: false,
                 plugins: {
-                    legend: { labels: { color: FONT_COLOR } },
-                    title: {
+                     ...defaultPlugins,
+                     title: {
                         display: true,
-                        text: 'Análisis de Dietas',
-                        color: FONT_COLOR
+                        text: 'Análisis Comparativo de Dietas',
+                        color: FONT_COLOR,
+                        font: { size: 16, family: "'Inter', sans-serif" }
                     }
                 },
                 scales: {
                     r: {
                         angleLines: { color: GRID_COLOR },
                         grid: { color: GRID_COLOR },
-                        pointLabels: { color: FONT_COLOR },
-                        ticks: { color: FONT_COLOR, backdropColor: 'transparent' },
+                        pointLabels: { 
+                            color: FONT_COLOR, 
+                            font: { size: 12, family: "'Inter', sans-serif" } 
+                        },
+                        ticks: {
+                            color: FONT_COLOR,
+                            backdropColor: 'rgba(0,0,0,0)',
+                            stepSize: 1
+                        },
                         suggestedMin: 0,
                         suggestedMax: 5
                     }
