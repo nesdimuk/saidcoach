@@ -1,0 +1,156 @@
+
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Infografía: Estrategias de Dieta Basadas en Ciencia</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;700;900&display=swap" rel="stylesheet">
+    <style>
+        body {
+            font-family: 'Inter', sans-serif;
+            background-color: #000000;
+            color: #f4f1ec;
+        }
+        .chart-container {
+            position: relative;
+            width: 100%;
+            max-width: 500px;
+            margin-left: auto;
+            margin-right: auto;
+            height: 300px;
+        }
+        @media (min-width: 768px) {
+            .chart-container {
+                height: 400px;
+            }
+        }
+        .gradient-text {
+            background: linear-gradient(90deg, #e79c00, #f4deb7);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+        }
+        .card {
+            background-color: #1a1a1a;
+            border: 1px solid #333;
+            border-radius: 1rem;
+        }
+        .highlight {
+            color: #e79c00;
+        }
+    </style>
+</head>
+<body class="text-gray-200">
+
+    <div class="container mx-auto p-4 md:p-8">
+        <header class="text-center mb-12">
+            <h1 class="text-4xl md:text-6xl font-black mb-4 gradient-text">Desmitificando las Dietas</h1>
+            <p class="text-lg md:text-xl max-w-3xl mx-auto text-gray-400">Un análisis visual de las estrategias para perder peso basadas en la ciencia.</p>
+        </header>
+
+        <section class="card p-8 mb-12">
+            <h2 class="text-2xl font-bold text-center mb-4">La Piedra Angular</h2>
+            <p class="text-center text-gray-300 mb-6">Independientemente de la dieta que elijas, el principio es el déficit calórico.</p>
+            <div class="text-center text-5xl font-black text-[#e79c00]">-500 a -750 Kcal/día</div>
+            <p class="text-sm text-center text-gray-400 mt-4">Déficit recomendado para pérdida saludable.</p>
+        </section>
+
+        <section class="card p-8 mb-12">
+            <h2 class="text-2xl font-bold text-center mb-8">Comparación de Rangos Calóricos</h2>
+            <div class="chart-container">
+                <canvas id="calorieDonutChart"></canvas>
+            </div>
+        </section>
+
+        <section class="card p-8 mb-12">
+            <h2 class="text-2xl font-bold text-center mb-8">Comparación de Tipos de Dietas</h2>
+            <div class="chart-container">
+                <canvas id="dietRadarChart"></canvas>
+            </div>
+        </section>
+    </div>
+
+    <script>
+        const FONT_COLOR = '#f4f1ec';
+        const GRID_COLOR = '#333';
+        const PALETTE = {
+            gold: '#e79c00',
+            beige: '#f4deb7',
+            softGold: 'rgba(231, 156, 0, 0.2)'
+        };
+
+        const calorieDonutCtx = document.getElementById('calorieDonutChart').getContext('2d');
+        new Chart(calorieDonutCtx, {
+            type: 'doughnut',
+            data: {
+                labels: ['Déficit LDC', 'Déficit VLCD', 'Restante'],
+                datasets: [{
+                    label: 'Distribución Calórica',
+                    data: [500, 200, 700],
+                    backgroundColor: [PALETTE.gold, PALETTE.beige, PALETTE.softGold],
+                    borderColor: [PALETTE.gold, PALETTE.beige, '#f4f1ec'],
+                    borderWidth: 2
+                }]
+            },
+            options: {
+                responsive: true,
+                maintainAspectRatio: false,
+                plugins: {
+                    legend: {
+                        labels: { color: FONT_COLOR }
+                    },
+                    title: {
+                        display: true,
+                        text: 'Distribución de Ingesta Calórica',
+                        color: FONT_COLOR
+                    }
+                }
+            }
+        });
+
+        const dietRadarCtx = document.getElementById('dietRadarChart').getContext('2d');
+        const radarLabels = ['Pérdida de Peso', 'Sostenibilidad', 'Saciedad', 'Salud Cardiaca', 'Adherencia'];
+
+        new Chart(dietRadarCtx, {
+            type: 'radar',
+            data: {
+                labels: radarLabels,
+                datasets: [{
+                    label: 'Mediterránea',
+                    data: [3.5, 5, 4, 5, 4.5],
+                    fill: true,
+                    backgroundColor: 'rgba(231, 156, 0, 0.2)',
+                    borderColor: PALETTE.gold,
+                    pointBackgroundColor: PALETTE.gold
+                }]
+            },
+            options: {
+                responsive: true,
+                maintainAspectRatio: false,
+                plugins: {
+                    legend: { labels: { color: FONT_COLOR } },
+                    title: {
+                        display: true,
+                        text: 'Análisis de Dietas',
+                        color: FONT_COLOR
+                    }
+                },
+                scales: {
+                    r: {
+                        angleLines: { color: GRID_COLOR },
+                        grid: { color: GRID_COLOR },
+                        pointLabels: { color: FONT_COLOR },
+                        ticks: { color: FONT_COLOR, backdropColor: 'transparent' },
+                        suggestedMin: 0,
+                        suggestedMax: 5
+                    }
+                }
+            }
+        });
+    </script>
+</body>
+</html>
