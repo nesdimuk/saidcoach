@@ -1,20 +1,11 @@
 export default function Leccion2() {
   return (
-    <div className="p-6 max-w-3xl mx-auto space-y-6">
+    <div className="p-6 max-w-4xl mx-auto space-y-6">
       <h1 className="text-3xl font-bold text-center">Desafío OCCIM – Lección 2</h1>
-
-      <p className="text-lg text-center whitespace-pre-line">
-        Lección 2 – No es lo que comes, es cómo lo repites
-        
-        ¿Te frustra no poder seguir una dieta al 100%?
-        La clave no es la perfección, es la repetición de pequeñas buenas decisiones.
-        Comer más verduras una vez al día ya es un avance.
-        Hoy, suma una verdura a tu almuerzo. Así de simple comienza el cambio.
-      </p>
 
       <div className="aspect-video">
         <iframe
-          className="w-full h-full rounded-xl shadow-lg"
+          className="w-full h-[500px] rounded-xl shadow-lg"
           src="https://www.youtube.com/embed/31kl5y0oKkw"
           title="Lección 2 – No es lo que comes, es cómo lo repites"
           frameBorder="0"
@@ -45,3 +36,4 @@ export default function Leccion2() {
     </div>
   );
 }
+
