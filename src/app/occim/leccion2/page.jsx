@@ -1,7 +1,7 @@
 export default function Leccion2() {
   return (
     <div className="p-6 max-w-4xl mx-auto space-y-6">
-      <h1 className="text-3xl font-bold text-center">Desafío OCCIM – Lección 2</h1>
+      <h1 className="text-3xl font-bold text-center text-[#e79e00]">Lección 2</h1>
 
       <div className="aspect-video">
         <iframe
