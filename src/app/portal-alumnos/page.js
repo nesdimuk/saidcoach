@@ -19,41 +19,49 @@ export default function PortalAlumnos() {
         strategy="afterInteractive"
       />
 
-      {/* Estilo general para fondo negro */}
+      {/* Estilo para forzar fondo negro */}
       <style>{`
         body {
           background-color: #000 !important;
         }
       `}</style>
 
-      {/* Contenido principal */}
+      {/* Contenido completo */}
       <main
         style={{
           minHeight: '100vh',
           backgroundColor: '#000',
+          color: '#fff',
+          fontFamily: "'Segoe UI', sans-serif",
           display: 'flex',
           flexDirection: 'column',
           alignItems: 'center',
-          justifyContent: 'center',
-          padding: '40px 20px',
-          fontFamily: "'Segoe UI', sans-serif",
-          color: '#fff'
+          padding: '40px 20px'
         }}
       >
-        {/* Logo centrado */}
-        <div style={{ textAlign: 'center', marginBottom: '30px' }}>
+        {/* Logo arriba, centrado */}
+        <header style={{ textAlign: 'center', marginBottom: '40px' }}>
           <img
             src="/saidcoach-logo.svg"
             alt="SaidCoach"
-            style={{ width: '200px', margin: '0 auto', display: 'block', filter: 'brightness(1.3)' }}
+            style={{
+              width: '200px',
+              display: 'block',
+              margin: '0 auto',
+              filter: 'brightness(1.4)'
+            }}
           />
-          <h1 style={{ fontSize: '2.2rem', marginTop: '20px' }}>Portal de Alumnos</h1>
-          <p style={{ fontSize: '1rem', color: '#ccc' }}>
+        </header>
+
+        {/* Título del portal */}
+        <div style={{ textAlign: 'center', marginBottom: '30px' }}>
+          <h1 style={{ fontSize: '2.2rem' }}>Portal de Alumnos</h1>
+          <p style={{ color: '#ccc' }}>
             Inicia sesión para acceder a tus entrenamientos y progreso
           </p>
         </div>
 
-        {/* Portal de PT Distinction */}
+        {/* Área embebida de PT Distinction */}
         <div id="ptd_portal" style={{ width: '100%', maxWidth: '500px' }}></div>
 
         {/* Footer */}
@@ -66,6 +74,7 @@ export default function PortalAlumnos() {
     </>
   );
 }
+
 
 
 
