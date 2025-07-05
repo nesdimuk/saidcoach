@@ -4,6 +4,13 @@ import Script from 'next/script';
 export default function PortalAlumnos() {
   return (
     <>
+      {/* Forzamos fondo blanco puro en todo */}
+      <style>{`
+        html, body {
+          background-color: #ffffff !important;
+        }
+      `}</style>
+
       {/* Configuración de PT Distinction */}
       <Script id="ptd-config" strategy="afterInteractive">
         {`
@@ -23,7 +30,7 @@ export default function PortalAlumnos() {
       <main
         style={{
           minHeight: '100vh',
-          backgroundColor: '#ffffff', // Fondo blanco puro
+          backgroundColor: '#ffffff',
           color: '#333',
           fontFamily: "'Segoe UI', sans-serif",
           display: 'flex',
@@ -66,6 +73,7 @@ export default function PortalAlumnos() {
     </>
   );
 }
+
 
 
 
