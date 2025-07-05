@@ -23,12 +23,13 @@ export default function PortalAlumnos() {
       <main
         style={{
           minHeight: '100vh',
-          background: 'linear-gradient(145deg, #fdfbfb, #ebedee)',
+          backgroundColor: '#000',
           display: 'flex',
           flexDirection: 'column',
           alignItems: 'center',
           padding: '60px 20px',
-          fontFamily: "'Segoe UI', sans-serif"
+          fontFamily: "'Segoe UI', sans-serif",
+          color: '#fff'
         }}
       >
         {/* Logo y encabezado */}
@@ -38,8 +39,8 @@ export default function PortalAlumnos() {
             alt="SaidCoach"
             style={{ width: '180px', marginBottom: '20px' }}
           />
-          <h1 style={{ color: '#222', fontSize: '2.2rem' }}>Portal de Alumnos</h1>
-          <p style={{ color: '#666', fontSize: '1rem' }}>
+          <h1 style={{ fontSize: '2.2rem' }}>Portal de Alumnos</h1>
+          <p style={{ fontSize: '1rem', color: '#ccc' }}>
             Inicia sesión para acceder a tus entrenamientos y progreso
           </p>
         </div>
@@ -48,7 +49,7 @@ export default function PortalAlumnos() {
         <div id="ptd_portal" style={{ width: '100%', maxWidth: '500px' }}></div>
 
         {/* Pie de página */}
-        <footer style={{ marginTop: '60px', textAlign: 'center', color: '#aaa' }}>
+        <footer style={{ marginTop: '60px', textAlign: 'center', color: '#888' }}>
           <p style={{ fontSize: '0.9rem' }}>
             ¿Problemas para ingresar? Escríbenos a <strong>marcelosaid.ep@gmail.com</strong>
           </p>
@@ -57,6 +58,7 @@ export default function PortalAlumnos() {
     </>
   );
 }
+
 
 
 
