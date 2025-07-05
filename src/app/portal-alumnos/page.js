@@ -1,8 +1,8 @@
+'use client';
 import { useEffect } from "react";
 
 export default function PortalAlumnos() {
   useEffect(() => {
-    // Script de configuración
     const script1 = document.createElement("script");
     script1.type = "text/javascript";
     script1.innerHTML = `
@@ -12,7 +12,6 @@ export default function PortalAlumnos() {
     `;
     document.body.appendChild(script1);
 
-    // Script del portal
     const script2 = document.createElement("script");
     script2.src = "https://v3portal.ptdistinction.com/v3/inside/integration/v1/portal.js?id=51a6e61dc5d5040dc259d17cbdc7c4cd";
     script2.async = true;
@@ -20,12 +19,13 @@ export default function PortalAlumnos() {
   }, []);
 
   return (
-    <main style={{ padding: "40px 20px", background: "#f9f9f9", minHeight: "100vh" }}>
-      <h1 style={{ textAlign: "center", color: "#333" }}>Acceso al Portal de Alumnos</h1>
-      <p style={{ textAlign: "center", color: "#666", marginBottom: "30px" }}>
-        Inicia sesión en tu cuenta para ver tus entrenamientos, progreso y más.
+    <main style={{ padding: "40px 20px", minHeight: "100vh", backgroundColor: "#f4f4f4" }}>
+      <h1 style={{ textAlign: "center", marginBottom: "20px" }}>Portal de Alumnos</h1>
+      <p style={{ textAlign: "center", marginBottom: "30px", color: "#666" }}>
+        Inicia sesión para acceder a tus entrenamientos
       </p>
       <div id="ptd_portal" style={{ maxWidth: "800px", margin: "0 auto" }}></div>
     </main>
   );
 }
+
