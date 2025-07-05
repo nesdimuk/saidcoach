@@ -19,7 +19,14 @@ export default function PortalAlumnos() {
         strategy="afterInteractive"
       />
 
-      {/* Contenido */}
+      {/* Estilo general para fondo negro */}
+      <style>{`
+        body {
+          background-color: #000 !important;
+        }
+      `}</style>
+
+      {/* Contenido principal */}
       <main
         style={{
           minHeight: '100vh',
@@ -27,28 +34,29 @@ export default function PortalAlumnos() {
           display: 'flex',
           flexDirection: 'column',
           alignItems: 'center',
-          padding: '60px 20px',
+          justifyContent: 'center',
+          padding: '40px 20px',
           fontFamily: "'Segoe UI', sans-serif",
           color: '#fff'
         }}
       >
-        {/* Logo y encabezado */}
-        <div style={{ textAlign: 'center', marginBottom: '40px' }}>
+        {/* Logo centrado */}
+        <div style={{ textAlign: 'center', marginBottom: '30px' }}>
           <img
             src="/saidcoach-logo.svg"
             alt="SaidCoach"
-            style={{ width: '180px', marginBottom: '20px' }}
+            style={{ width: '200px', margin: '0 auto', display: 'block', filter: 'brightness(1.3)' }}
           />
-          <h1 style={{ fontSize: '2.2rem' }}>Portal de Alumnos</h1>
+          <h1 style={{ fontSize: '2.2rem', marginTop: '20px' }}>Portal de Alumnos</h1>
           <p style={{ fontSize: '1rem', color: '#ccc' }}>
             Inicia sesión para acceder a tus entrenamientos y progreso
           </p>
         </div>
 
-        {/* Área del portal de PT Distinction */}
+        {/* Portal de PT Distinction */}
         <div id="ptd_portal" style={{ width: '100%', maxWidth: '500px' }}></div>
 
-        {/* Pie de página */}
+        {/* Footer */}
         <footer style={{ marginTop: '60px', textAlign: 'center', color: '#888' }}>
           <p style={{ fontSize: '0.9rem' }}>
             ¿Problemas para ingresar? Escríbenos a <strong>marcelosaid.ep@gmail.com</strong>
@@ -58,6 +66,7 @@ export default function PortalAlumnos() {
     </>
   );
 }
+
 
 
 
