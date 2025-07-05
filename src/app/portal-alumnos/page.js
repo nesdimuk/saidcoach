@@ -32,12 +32,16 @@ export default function PortalAlumnos() {
           padding: '40px 20px'
         }}
       >
-        {/* Logo arriba */}
+        {/* Logo centrado */}
         <header style={{ textAlign: 'center', marginBottom: '30px' }}>
           <img
             src="/saidcoach-logo.svg"
             alt="SaidCoach"
-            style={{ width: '180px', display: 'block', margin: '0 auto' }}
+            style={{
+              width: '180px',
+              display: 'block',
+              margin: '0 auto'
+            }}
           />
         </header>
 
@@ -49,7 +53,7 @@ export default function PortalAlumnos() {
           </p>
         </div>
 
-        {/* Portal embed */}
+        {/* Portal embed de PT Distinction */}
         <div id="ptd_portal" style={{ width: '100%', maxWidth: '500px' }}></div>
 
         {/* Footer */}
