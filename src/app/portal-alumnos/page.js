@@ -4,7 +4,7 @@ import Script from 'next/script';
 export default function PortalAlumnos() {
   return (
     <>
-      {/* Configuración PT Distinction */}
+      {/* Configuración de PT Distinction */}
       <Script id="ptd-config" strategy="afterInteractive">
         {`
           var ptd_param = {};
@@ -19,7 +19,7 @@ export default function PortalAlumnos() {
         strategy="afterInteractive"
       />
 
-      {/* Estética y estructura */}
+      {/* Contenido */}
       <main
         style={{
           minHeight: '100vh',
@@ -31,9 +31,10 @@ export default function PortalAlumnos() {
           fontFamily: "'Segoe UI', sans-serif"
         }}
       >
+        {/* Logo y encabezado */}
         <div style={{ textAlign: 'center', marginBottom: '40px' }}>
           <img
-            src="/saidoach-logo.svg"
+            src="/saidcoach-logo.svg"
             alt="SaidCoach"
             style={{ width: '180px', marginBottom: '20px' }}
           />
@@ -43,17 +44,20 @@ export default function PortalAlumnos() {
           </p>
         </div>
 
+        {/* Área del portal de PT Distinction */}
         <div id="ptd_portal" style={{ width: '100%', maxWidth: '500px' }}></div>
 
+        {/* Pie de página */}
         <footer style={{ marginTop: '60px', textAlign: 'center', color: '#aaa' }}>
           <p style={{ fontSize: '0.9rem' }}>
-            ¿Problemas para ingresar? Escríbenos a <strong>contacto@saidtrainer.com</strong>
+            ¿Problemas para ingresar? Escríbenos a <strong>marcelosaid.ep@gmail.com</strong>
           </p>
         </footer>
       </main>
     </>
   );
 }
+
 
 
 
