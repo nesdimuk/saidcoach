@@ -19,19 +19,12 @@ export default function PortalAlumnos() {
         strategy="afterInteractive"
       />
 
-      {/* Estilo para forzar fondo negro */}
-      <style>{`
-        body {
-          background-color: #000 !important;
-        }
-      `}</style>
-
-      {/* Contenido completo */}
+      {/* Contenido */}
       <main
         style={{
           minHeight: '100vh',
-          backgroundColor: '#000',
-          color: '#fff',
+          backgroundColor: '#f9f9f9',
+          color: '#333',
           fontFamily: "'Segoe UI', sans-serif",
           display: 'flex',
           flexDirection: 'column',
@@ -39,33 +32,28 @@ export default function PortalAlumnos() {
           padding: '40px 20px'
         }}
       >
-        {/* Logo arriba, centrado */}
-        <header style={{ textAlign: 'center', marginBottom: '40px' }}>
+        {/* Logo arriba */}
+        <header style={{ textAlign: 'center', marginBottom: '30px' }}>
           <img
             src="/saidcoach-logo.svg"
             alt="SaidCoach"
-            style={{
-              width: '200px',
-              display: 'block',
-              margin: '0 auto',
-              filter: 'brightness(1.4)'
-            }}
+            style={{ width: '180px', display: 'block', margin: '0 auto' }}
           />
         </header>
 
-        {/* Título del portal */}
+        {/* Título */}
         <div style={{ textAlign: 'center', marginBottom: '30px' }}>
           <h1 style={{ fontSize: '2.2rem' }}>Portal de Alumnos</h1>
-          <p style={{ color: '#ccc' }}>
+          <p style={{ color: '#666' }}>
             Inicia sesión para acceder a tus entrenamientos y progreso
           </p>
         </div>
 
-        {/* Área embebida de PT Distinction */}
+        {/* Portal embed */}
         <div id="ptd_portal" style={{ width: '100%', maxWidth: '500px' }}></div>
 
         {/* Footer */}
-        <footer style={{ marginTop: '60px', textAlign: 'center', color: '#888' }}>
+        <footer style={{ marginTop: '60px', textAlign: 'center', color: '#999' }}>
           <p style={{ fontSize: '0.9rem' }}>
             ¿Problemas para ingresar? Escríbenos a <strong>marcelosaid.ep@gmail.com</strong>
           </p>
@@ -74,6 +62,7 @@ export default function PortalAlumnos() {
     </>
   );
 }
+
 
 
 
