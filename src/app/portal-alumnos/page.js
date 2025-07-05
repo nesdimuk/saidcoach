@@ -23,7 +23,7 @@ export default function PortalAlumnos() {
       <main
         style={{
           minHeight: '100vh',
-          backgroundColor: '#f9f9f9',
+          backgroundColor: '#ffffff', // Fondo blanco puro
           color: '#333',
           fontFamily: "'Segoe UI', sans-serif",
           display: 'flex',
@@ -53,7 +53,7 @@ export default function PortalAlumnos() {
           </p>
         </div>
 
-        {/* Portal embed de PT Distinction */}
+        {/* Portal embed */}
         <div id="ptd_portal" style={{ width: '100%', maxWidth: '500px' }}></div>
 
         {/* Footer */}
