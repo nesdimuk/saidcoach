@@ -7,7 +7,7 @@ export default function Leccion5() {
         <div className="aspect-video">
           <iframe
             className="w-full h-[500px] rounded-xl shadow-lg"
-            src="https://www.youtube.com/embed/ID_DEL_VIDEO"
+            src="https://www.youtube.com/embed/fxXgSJ3rhJI"
             title="Lección 5 – Comer sin hambre es emocional, no racional"
             frameBorder="0"
             allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
@@ -18,7 +18,7 @@ export default function Leccion5() {
         <div className="border-t pt-6">
           <h2 className="text-xl font-semibold mb-2 text-[#e79e00]">📝 Responde y suma puntos</h2>
           <iframe
-            src="URL_PUBLICA_DEL_FORM?embedded=true"
+            src="https://docs.google.com/forms/d/e/1FAIpQLSf1rNO2IuOeOXGKzGXtWfWDAgEwiCzJlkpHAlxOXq7X3wjILg/viewform?embedded=true"
             width="100%"
             height="750"
             frameBorder="0"
@@ -38,3 +38,4 @@ export default function Leccion5() {
     </div>
   );
 }
+
