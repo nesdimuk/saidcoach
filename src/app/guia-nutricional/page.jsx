@@ -1,4 +1,5 @@
-// src/pages/guia-nutricional.jsx
+// src/app/guia-nutricional/page.jsx
+"use client";
 import { useEffect, useMemo, useState } from "react";
 
 const BASE_FORM_URL =
@@ -63,10 +64,9 @@ export default function GuiaNutricionalPage() {
       </section>
 
       <section className="mx-auto max-w-5xl px-4 pb-20">
-        {/* Aviso post-envío */}
         <div className="mb-4 rounded-2xl border border-[#e79c00]/30 bg-[#e79c00]/10 p-4 text-sm text-[#f4f1ec]">
-          <strong className="text-[#e79c00]">⏳ Importante:</strong> Al enviar el formulario, en unos minutos recibirás tu guía en el correo indicado. 
-          Si no la ves, revisa las carpetas <em>Spam</em>/Promociones o escríbenos a <a className="underline" href="mailto:contacto@saidtrainer.com">contacto@saidtrainer.com</a>.
+          <strong className="text-[#e79c00]">⏳ Importante:</strong> Al enviar el formulario, en unos minutos recibirás tu guía en el correo indicado.
+          Si no la ves, revisa las carpetas <em>Spam</em>/Promociones o escríbenos a <a className="underline" href="mailto:marcelosaid.ep@gmail.com">marcelosaid.ep@gmail.com</a>.
         </div>
 
         <div className="rounded-3xl border border-white/10 bg-white/5 p-4 shadow-xl">
@@ -100,6 +100,7 @@ export default function GuiaNutricionalPage() {
     </main>
   );
 }
+
 
 
 
