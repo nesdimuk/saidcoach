@@ -1,7 +1,7 @@
 export default function Leccion6() {
   return (
     <div className="bg-gray-100 min-h-screen px-4 py-6 sm:p-6">
-      <div className="w-full mx-auto space-y-6">
+      <div className="w-full mx-auto space-y-8">
         {/* Título de la lección */}
         <h1 className="text-3xl font-bold text-center text-[#e79e00]">Lección 6</h1>
         
@@ -27,8 +27,8 @@ export default function Leccion6() {
         </div>
         
         {/* Sección del formulario */}
-        <div className="border-t pt-6">
-          <h2 className="text-xl font-semibold mb-4 text-[#e79e00]">📝 Responde y suma puntos</h2>
+        <div className="border-t pt-8 mt-8">
+          <h2 className="text-xl font-semibold mb-6 text-[#e79e00]">📝 Responde y suma puntos</h2>
           
           {/* Contenedor del formulario */}
           <div className="w-full h-[450px] sm:h-[550px] md:h-[650px] rounded-xl overflow-hidden shadow border">
