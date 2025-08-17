@@ -1,36 +1,51 @@
 export default function Leccion6() {
   return (
-    <div className="flex flex-col items-center justify-center min-h-screen bg-gray-50 p-6">
-      <h1 className="text-3xl font-bold text-gray-800 mb-6">
-        🎧 Lección 6 – El estrés pide movimiento, no solo descanso
-      </h1>
+    // Contenedor principal con fondo gris y padding.
+    <div className="bg-gray-100 min-h-screen p-6">
+      {/* Contenedor central de contenido. Cambiado de max-w-4xl a max-w-5xl para más espacio. */}
+      <div className="max-w-5xl mx-auto space-y-6"> {/* MODIFICADO: Aumentado el ancho máximo */}
+        {/* Título de la lección. */}
+        <h1 className="text-3xl font-bold text-center text-[#e79e00]">Lección 6</h1>
 
-      <div className="w-full max-w-2xl aspect-video mb-6">
-        <iframe
-          className="w-full h-full rounded-2xl shadow-lg"
-          src="https://www.youtube.com/embed/WOszzxK8MIA"
-          title="Lección 6"
-          frameBorder="0"
-          allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
-          allowFullScreen
-        />
+        {/* Contenedor del video: mantiene la relación de aspecto 16:9. */}
+        <div className="aspect-video">
+          {/* Iframe del video de YouTube. */}
+          <iframe
+            // MODIFICADO: Eliminado 'h-[500px]' y asegurado 'h-full'
+            // Esto permite que el video se adapte completamente a la altura del contenedor 'aspect-video'
+            // que a su vez escala con el ancho disponible.
+            className="w-full h-full rounded-xl shadow-lg"
+            src="https://www.youtube.com/embed/WOszzxK8MIA"
+            title="Lección 6 – El estrés pide movimiento, no solo descanso"
+            frameBorder="0"
+            allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
+            allowFullScreen
+          />
+        </div>
+
+        {/* Sección del formulario. */}
+        <div className="border-t pt-6">
+          <h2 className="text-xl font-semibold mb-2 text-[#e79e00]">📝 Responde y suma puntos</h2>
+          <iframe
+            src="https://docs.google.com/forms/d/e/1FAIpQLScUawe_DbPq10NBMMvzbKN0pU1C8lh1K-lMqzp4m0rpNG1Flg/viewform?embedded=true"
+            width="100%"
+            height="750" // Altura del formulario, se mantiene igual ya que es razonable.
+            frameBorder="0"
+            marginHeight="0"
+            marginWidth="0"
+            className="rounded-xl shadow"
+            title="Formulario Lección 6"
+          >
+            Cargando…
+          </iframe>
+        </div>
+
+        {/* Pie de página. */}
+        <div className="text-center pt-4 text-sm text-gray-500">
+          © {new Date().getFullYear()} SaidCoach · Todos los derechos reservados
+        </div>
       </div>
-
-      <p className="text-lg text-gray-700 mb-6 text-center max-w-2xl">
-        ¿Te sientes abrumado y solo quieres acostarte?  
-        A veces lo que más te ayuda no es parar, sino moverte.  
-        Caminar, estirar, respirar hondo libera tensión acumulada.  
-        Hoy, haz una pausa activa de 2 minutos. Tu mente también necesita moverse.
-      </p>
-
-      <a
-        href="https://docs.google.com/forms/d/e/1FAIpQLSeJEV7qv8_mtkJrbQmfSECNyNprBPBCuUzrWs0CaUQQsnnong/viewform"
-        target="_blank"
-        rel="noopener noreferrer"
-        className="px-6 py-3 bg-blue-600 text-white rounded-xl shadow-lg hover:bg-blue-700 transition"
-      >
-        Responder Formulario
-      </a>
     </div>
   );
 }
+

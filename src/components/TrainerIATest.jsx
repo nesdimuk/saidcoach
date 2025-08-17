@@ -1,4 +1,3 @@
-
 'use client';
 import React, { useState } from 'react';
 import { CheckCircle, Brain, MessageCircle, Camera, TrendingUp, Award, ArrowRight, RefreshCw } from 'lucide-react';
@@ -7,7 +6,11 @@ const TrainerIATest = () => {
   const [currentQuestion, setCurrentQuestion] = useState(0);
   const [answers, setAnswers] = useState({});
   const [showResult, setShowResult] = useState(false);
+  const [showEmailCapture, setShowEmailCapture] = useState(false);
   const [result, setResult] = useState(null);
+  const [email, setEmail] = useState('');
+  const [nombre, setNombre] = useState('');
+  const [emailEnviado, setEmailEnviado] = useState(false);
 
   const questions = [
     {
@@ -123,14 +126,42 @@ const TrainerIATest = () => {
     };
 
     setResult(resultData);
-    setShowResult(true);
+    setShowResult(false); // Primero mostrar captura de email
+    setShowEmailCapture(true);
+  };
+
+  const handleEmailSubmit = () => {
+    if (!email || !nombre) {
+      alert('Por favor completa todos los campos');
+      return;
+    }
+    
+    // Aquí puedes integrar con tu servicio de email (Mailchimp, ConvertKit, etc.)
+    console.log('Lead capturado:', { 
+      nombre, 
+      email, 
+      resultado: result?.winner,
+      scores: result?.scores,
+      fecha: new Date().toISOString()
+    });
+    
+    // Simular envío
+    setEmailEnviado(true);
+    setTimeout(() => {
+      setShowEmailCapture(false);
+      setShowResult(true);
+    }, 1500);
   };
 
   const resetTest = () => {
     setCurrentQuestion(0);
     setAnswers({});
     setShowResult(false);
+    setShowEmailCapture(false);
     setResult(null);
+    setEmail('');
+    setNombre('');
+    setEmailEnviado(false);
   };
 
   const getResultContent = () => {
@@ -188,6 +219,88 @@ const TrainerIATest = () => {
 
     return results[winner];
   };
+
+  if (showEmailCapture) {
+    return (
+      <div className="max-w-2xl mx-auto p-6 bg-white rounded-xl shadow-lg">
+        <div className="text-center mb-8">
+          <div className="text-6xl mb-4">🎉</div>
+          <h2 className="text-3xl font-bold text-gray-800 mb-4">
+            ¡Test Completado!
+          </h2>
+          <p className="text-lg text-gray-600 mb-2">
+            Tu recomendación personalizada está lista
+          </p>
+          <p className="text-gray-500">
+            Recibe tu resultado + una guía exclusiva con prompts específicos para tu tipo de entrenador
+          </p>
+        </div>
+
+        {!emailEnviado ? (
+          <div className="bg-gradient-to-br from-blue-50 to-purple-50 p-8 rounded-lg border border-blue-200">
+            <h3 className="text-xl font-bold text-gray-800 mb-6 text-center">
+              📧 Recibe tu reporte personalizado
+            </h3>
+            
+            <div className="space-y-4 mb-6">
+              <div>
+                <input
+                  type="text"
+                  placeholder="Tu nombre completo"
+                  value={nombre}
+                  onChange={(e) => setNombre(e.target.value)}
+                  className="w-full p-4 border-2 border-gray-200 rounded-lg focus:border-blue-500 focus:outline-none transition-colors"
+                />
+              </div>
+              <div>
+                <input
+                  type="email"
+                  placeholder="tu@email.com"
+                  value={email}
+                  onChange={(e) => setEmail(e.target.value)}
+                  className="w-full p-4 border-2 border-gray-200 rounded-lg focus:border-blue-500 focus:outline-none transition-colors"
+                />
+              </div>
+            </div>
+
+            <div className="bg-yellow-50 p-4 rounded-lg mb-6 border border-yellow-200">
+              <h4 className="font-bold text-yellow-800 mb-2">🎁 BONUS Incluidos:</h4>
+              <ul className="text-sm text-yellow-700 space-y-1">
+                <li>✅ Tu IA recomendada + por qué es perfecta para ti</li>
+                <li>✅ 20+ prompts específicos para tu perfil</li>
+                <li>✅ Plan de implementación paso a paso</li>
+                <li>✅ Acceso a casos de éxito reales</li>
+              </ul>
+            </div>
+
+            <button
+              onClick={handleEmailSubmit}
+              className="w-full bg-gradient-to-r from-blue-600 to-purple-600 hover:from-blue-700 hover:to-purple-700 text-white py-4 px-6 rounded-lg font-bold text-lg transition-all duration-300 transform hover:scale-105"
+            >
+              🚀 Enviar Mi Reporte Personalizado
+            </button>
+
+            <p className="text-xs text-gray-500 text-center mt-4">
+              No spam. Solo contenido valioso para entrenadores que quieren dominar la IA.
+            </p>
+          </div>
+        ) : (
+          <div className="text-center py-8">
+            <div className="text-4xl mb-4">✅</div>
+            <h3 className="text-xl font-bold text-green-600 mb-2">
+              ¡Perfecto! Tu reporte está en camino
+            </h3>
+            <p className="text-gray-600 mb-4">
+              Revisa tu email en los próximos minutos...
+            </p>
+            <div className="animate-pulse text-blue-600">
+              Preparando tu resultado personalizado...
+            </div>
+          </div>
+        )}
+      </div>
+    );
+  }
 
   if (showResult) {
     const resultContent = getResultContent();
