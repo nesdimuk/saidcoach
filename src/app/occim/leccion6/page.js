@@ -33,7 +33,7 @@ export default function Leccion6() {
           {/* Contenedor del formulario */}
           <div className="w-full h-[450px] sm:h-[550px] md:h-[650px] rounded-xl overflow-hidden shadow border">
             <iframe
-              src="https://docs.google.com/forms/d/e/1FAIpQLScUawe_DbPq10NBMMvzbKN0pU1C8lh1K-lMqzp4m0rpNG1Flg/viewform?embedded=true"
+              src="https://docs.google.com/forms/d/e/1FAIpQLSeJEV7qv8_mtkJrbQmfSECNyNprBPBCuUzrWs0CaUQQsnnong/viewform?usp=dialog&embedded=true"
               width="100%"
               height="100%"
               frameBorder="0"
