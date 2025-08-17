@@ -1,3 +1,5 @@
+
+'use client';
 import React, { useState } from 'react';
 import { CheckCircle, Brain, MessageCircle, Camera, TrendingUp, Award, ArrowRight, RefreshCw } from 'lucide-react';
 
