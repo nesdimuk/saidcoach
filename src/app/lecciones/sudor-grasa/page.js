@@ -1,4 +1,4 @@
-import LeccionGenerica from '@/components/LeccionGenerica';
+import LeccionGenerica from '../../../components/LeccionGenerica'
 
 export default function LeccionSudarGrasa() {
   return (
