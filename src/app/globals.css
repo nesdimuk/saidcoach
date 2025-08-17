@@ -50,3 +50,14 @@ body {
 .animate-fade-up {
   animation: fade-up 0.6s ease-out both;
 }
+
+/* Al final de globals.css */
+@layer utilities {
+  .btn-brand {
+    @apply bg-[#e79c00] text-white px-4 py-2 rounded-xl text-sm font-medium shadow hover:opacity-90;
+  }
+  .btn-dark {
+    @apply bg-[#111827] text-white px-4 py-2 rounded-xl text-sm font-medium shadow hover:opacity-90;
+  }
+}
+
