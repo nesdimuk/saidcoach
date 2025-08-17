@@ -6,7 +6,7 @@ export default function Leccion6() {
         <h1 className="text-3xl font-bold text-center text-[#e79e00]">Lección 6</h1>
         
         {/* Contenedor del video con altura mínima en móviles */}
-        <div className="aspect-video min-h-[200px] sm:min-h-[300px]">
+       <div className="aspect-video min-h-[250px] sm:min-h-[350px] md:min-h-[400px]">
           <iframe
             className="w-full h-full rounded-xl shadow-lg"
             src="https://www.youtube.com/embed/WOszzxK8MIA"
