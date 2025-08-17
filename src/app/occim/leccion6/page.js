@@ -1,14 +1,22 @@
 export default function Leccion6() {
   return (
-    <div className="bg-gray-100 min-h-screen px-4 py-6 sm:p-6">
-      <div className="w-full mx-auto space-y-6">
-        {/* Título de la lección */}
-        <h1 className="text-3xl font-bold text-center text-[#e79e00]">Lección 6</h1>
-        
-        {/* Contenedor del video con altura mínima en móviles */}
-       <div className="aspect-video min-h-[250px] sm:min-h-[350px] md:min-h-[400px]">
+    <div className="bg-gray-100 min-h-screen">
+      {/* Título compacto */}
+      <div className="px-4 py-3 bg-white shadow-sm">
+        <h1 className="text-xl sm:text-3xl font-bold text-center text-[#e79e00]">Lección 6</h1>
+      </div>
+      
+      {/* Video a casi pantalla completa en móvil */}
+      <div className="px-1 sm:px-4 py-2">
+        <div 
+          className="w-full rounded-lg sm:rounded-xl shadow-lg overflow-hidden bg-black"
+          style={{ 
+            height: 'min(85vh, 700px)', // 85% del viewport en móvil
+            minHeight: '320px'
+          }}
+        >
           <iframe
-            className="w-full h-full rounded-xl shadow-lg"
+            className="w-full h-full"
             src="https://www.youtube.com/embed/WOszzxK8MIA"
             title="Lección 6 – El estrés pide movimiento, no solo descanso"
             frameBorder="0"
@@ -16,33 +24,32 @@ export default function Leccion6() {
             allowFullScreen
           />
         </div>
-        
-        {/* Sección del formulario */}
-        <div className="border-t pt-6">
-          <h2 className="text-xl font-semibold mb-4 text-[#e79e00]">📝 Responde y suma puntos</h2>
+      </div>
+      
+      {/* Formulario en sección sticky/expandible */}
+      <div className="bg-white mx-2 sm:mx-4 rounded-t-xl shadow-lg sticky bottom-0">
+        <div className="p-4">
+          <h2 className="text-lg font-semibold mb-3 text-[#e79e00] text-center">📝 Completa el formulario</h2>
           
-          {/* Contenedor del formulario con altura responsiva */}
-          <div className="w-full">
+          {/* Formulario compacto por defecto */}
+          <div className="h-[300px] sm:h-[500px] md:h-[600px] rounded-lg overflow-hidden border shadow-sm">
             <iframe
               src="https://docs.google.com/forms/d/e/1FAIpQLScUawe_DbPq10NBMMvzbKN0pU1C8lh1K-lMqzp4m0rpNG1Flg/viewform?embedded=true"
               width="100%"
-              // Altura más pequeña en móviles, más grande en desktop
-              height="600"
-              className="h-[500px] sm:h-[600px] md:h-[700px] lg:h-[750px] w-full rounded-xl shadow"
+              height="100%"
               frameBorder="0"
               marginHeight="0"
               marginWidth="0"
               title="Formulario Lección 6"
-              style={{ minHeight: '500px' }}
             >
               Cargando…
             </iframe>
           </div>
-        </div>
-        
-        {/* Pie de página */}
-        <div className="text-center pt-4 text-sm text-gray-500">
-          © {new Date().getFullYear()} SaidCoach · Todos los derechos reservados
+          
+          {/* Mensaje para scroll */}
+          <div className="text-xs text-gray-500 text-center mt-2">
+            📱 Desplázate dentro del formulario para navegar
+          </div>
         </div>
       </div>
     </div>
