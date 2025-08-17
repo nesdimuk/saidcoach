@@ -25,13 +25,17 @@ export default function LeccionGenerica({
   useEffect(() => {
     if (guardado) {
       const celebracionAudio = new Audio('/sonidos/celebracion.mp3');
-      celebracionAudio.play();
+      celebracionAudio.play().catch(() => {
+        // Silently handle audio play errors
+      });
     }
 
-    const savedNombre = localStorage.getItem('nombre');
-    const savedCorreo = localStorage.getItem('correo');
-    if (savedNombre) setNombre(savedNombre);
-    if (savedCorreo) setCorreo(savedCorreo);
+    if (typeof window !== 'undefined') {
+      const savedNombre = localStorage.getItem('nombre');
+      const savedCorreo = localStorage.getItem('correo');
+      if (savedNombre) setNombre(savedNombre);
+      if (savedCorreo) setCorreo(savedCorreo);
+    }
   }, [guardado]);
 
   const manejarFinVideo = () => {
@@ -55,16 +59,25 @@ export default function LeccionGenerica({
   };
 
   const manejarEnvioFinal = () => {
-    localStorage.setItem('nombre', nombre);
-    localStorage.setItem('correo', correo);
-    console.log({ nombre, correo, leccion: nombreLeccion, respuesta: respuestaSeleccionada, bienestar: respuestaBienestar, puntos });
+    if (typeof window !== 'undefined') {
+      localStorage.setItem('nombre', nombre);
+      localStorage.setItem('correo', correo);
+    }
+    console.log({ 
+      nombre, 
+      correo, 
+      leccion: nombreLeccion, 
+      respuesta: respuestaSeleccionada, 
+      bienestar: respuestaBienestar, 
+      puntos 
+    });
     setGuardado(true);
   };
 
   return (
     <div className="max-w-xl mx-auto p-6 text-left">
       <h1 className="text-2xl font-bold mb-4" style={{ color: '#e79c00' }}>
-        Lección: {nombreLeccion.replace(/-/g, ' ').toUpperCase()}
+        Lección: {nombreLeccion ? nombreLeccion.replace(/-/g, ' ').toUpperCase() : 'CARGANDO...'}
       </h1>
 
       {pantalla === 1 && (
@@ -86,18 +99,20 @@ export default function LeccionGenerica({
             style={{ backgroundColor: '#e79c00' }}
             onClick={() => setPantalla(3)}
           >
-            Sigue sumando 🔓
+            Sigue sumando 🚀
           </button>
         </div>
       )}
 
       {pantalla === 3 && (
         <div className="mt-8 space-y-4 text-black">
-          <h2 className="text-lg font-semibold" style={{ color: '#e79c00' }}>{preguntaCerrada}</h2>
+          <h2 className="text-lg font-semibold" style={{ color: '#e79c00' }}>
+            {preguntaCerrada}
+          </h2>
           <div className="grid gap-2">
-            {opcionesCerradas.map((op) => (
+            {opcionesCerradas && opcionesCerradas.map((op, index) => (
               <button
-                key={op}
+                key={index}
                 onClick={() => manejarRespuesta(op)}
                 className="bg-[#f4deb7] hover:bg-[#e79c00] px-4 py-2 rounded text-left"
               >
@@ -110,11 +125,13 @@ export default function LeccionGenerica({
 
       {pantalla === 5 && (
         <div className="mt-8 space-y-4 text-black">
-          <h2 className="text-lg font-semibold" style={{ color: '#e79c00' }}>{preguntaBienestar}</h2>
+          <h2 className="text-lg font-semibold" style={{ color: '#e79c00' }}>
+            {preguntaBienestar}
+          </h2>
           <div className="grid gap-2">
-            {opcionesBienestar.map((op) => (
+            {opcionesBienestar && opcionesBienestar.map((op, index) => (
               <button
-                key={op}
+                key={index}
                 onClick={() => manejarBienestar(op)}
                 className="bg-[#f4f1ec] hover:bg-[#f4deb7] px-4 py-2 rounded text-left"
               >
