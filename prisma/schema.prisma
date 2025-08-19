@@ -1,0 +1,165 @@
+// This is your Prisma schema file,
+// learn more about it in the docs: https://pris.ly/d/prisma-schema
+
+generator client {
+  provider = "prisma-client-js"
+}
+
+datasource db {
+  provider = "sqlite"
+  url      = env("DATABASE_URL")
+}
+
+model User {
+  id        String   @id @default(cuid())
+  email     String   @unique
+  name      String?
+  role      String   @default("CLIENT") // CLIENT, COACH, ADMIN
+  
+  // Datos para generar planes
+  age       Int?
+  weight    Float?
+  height    Float?
+  gender    String?  // MALE, FEMALE
+  activityLevel String? // SEDENTARY, LIGHT, MODERATE, ACTIVE, VERY_ACTIVE
+  goal      String?  // WEIGHT_LOSS, MAINTENANCE, MUSCLE_GAIN
+  
+  // Relaciones
+  nutritionPlans NutritionPlan[]
+  workoutPlans   WorkoutPlan[]
+  progress       Progress[]
+  
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+}
+
+model NutritionPlan {
+  id          String   @id @default(cuid())
+  userId      String
+  user        User     @relation(fields: [userId], references: [id])
+  
+  // Objetivos nutricionales (basado en tu sistema PN)
+  targetP     Float    // Proteínas
+  targetC     Float    // Carbohidratos  
+  targetG     Float    // Grasas
+  targetV     Float    // Verduras
+  
+  // Configuración del plan
+  goal        String   // WEIGHT_LOSS, MAINTENANCE, MUSCLE_GAIN
+  preference  String   // BALANCED, HIGH_CARB, HIGH_FAT
+  isActive    Boolean  @default(true)
+  
+  // Comidas del día
+  meals       Meal[]
+  
+  createdAt   DateTime @default(now())
+  validUntil  DateTime // Planes se regeneran semanalmente
+}
+
+model Meal {
+  id              String        @id @default(cuid())
+  nutritionPlanId String
+  nutritionPlan   NutritionPlan @relation(fields: [nutritionPlanId], references: [id])
+  
+  type            String        // DESAYUNO, ALMUERZO, ONCE, CENA
+  name            String
+  description     String?
+  
+  // Valores nutricionales
+  proteins        Float
+  carbs           Float
+  fats            Float
+  vegetables      Float
+  
+  // Ingredientes
+  ingredients     MealIngredient[]
+  
+  order           Int           // Orden en el día
+}
+
+model MealIngredient {
+  id      String @id @default(cuid())
+  mealId  String
+  meal    Meal   @relation(fields: [mealId], references: [id])
+  
+  name    String
+  amount  String  // "1 taza", "200g", etc.
+  
+  // Macros que aporta este ingrediente
+  proteins    Float
+  carbs       Float
+  fats        Float
+  vegetables  Float
+  quality     String // verde, amarillo, rojo
+}
+
+model WorkoutPlan {
+  id          String   @id @default(cuid())
+  userId      String
+  user        User     @relation(fields: [userId], references: [id])
+  
+  goal        String   // WEIGHT_LOSS, MAINTENANCE, MUSCLE_GAIN
+  level       String   // BEGINNER, INTERMEDIATE, ADVANCED
+  daysPerWeek Int
+  
+  workouts    Workout[]
+  isActive    Boolean  @default(true)
+  
+  createdAt   DateTime @default(now())
+  validUntil  DateTime
+}
+
+model Workout {
+  id            String      @id @default(cuid())
+  workoutPlanId String
+  workoutPlan   WorkoutPlan @relation(fields: [workoutPlanId], references: [id])
+  
+  name          String      // "Día 1: Tren Superior"
+  dayOfWeek     Int         // 1=Lunes, 2=Martes, etc.
+  
+  exercises     Exercise[]
+  
+  estimatedTime Int         // minutos
+}
+
+model Exercise {
+  id        String  @id @default(cuid())
+  workoutId String
+  workout   Workout @relation(fields: [workoutId], references: [id])
+  
+  name      String  // "Flexiones"
+  sets      Int
+  reps      String  // "10-12" o "30 seg"
+  rest      String  // "60 seg"
+  notes     String? // "Enfócate en la forma"
+  
+  category  String  // FUERZA, CARDIO, FLEXIBILIDAD
+  bodyPart  String  // PECHO, PIERNAS, etc.
+  
+  order     Int
+}
+
+model Progress {
+  id         String   @id @default(cuid())
+  userId     String
+  user       User     @relation(fields: [userId], references: [id])
+  
+  date       DateTime @default(now())
+  
+  // Progreso nutricional
+  consumedP  Float?
+  consumedC  Float?
+  consumedG  Float?
+  consumedV  Float?
+  
+  // Progreso de entrenamiento
+  workoutCompleted Boolean @default(false)
+  exercisesCompleted Int   @default(0)
+  
+  // Métricas generales
+  weight     Float?
+  energy     Int?     // 1-10 escala
+  mood       Int?     // 1-10 escala
+  
+  notes      String?
+}
