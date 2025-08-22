@@ -44,7 +44,7 @@ export default function GuiaNutricionalPage() {
           <img src="/logo-saidcoach.svg" alt="Said Coach" className="mx-auto mb-4 h-12" />
           <h1 className="mt-2 text-3xl md:text-5xl font-extrabold tracking-tight text-[#e79c00]">Guía Nutricional Personalizada</h1>
           <p className="mt-4 text-base md:text-lg text-[#f4deb7] max-w-2xl mx-auto">
-            Completa el siguiente formulario (5–8 minutos) y recibe tu guía práctica con porciones en medidas caseras,
+            Completa el siguiente formulario (60 segundos) y recibe tu guía práctica con porciones en medidas caseras,
             menú sugerido y recomendaciones personalizadas según tus objetivos y preferencias.
           </p>
         </div>

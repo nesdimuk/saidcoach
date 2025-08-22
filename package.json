@@ -11,10 +11,13 @@
     "db:studio": "prisma studio",
     "db:generate": "prisma generate",
     "db:migrate": "prisma migrate dev",
-    "db:seed": "node prisma/seed.js"
+    "db:seed": "node prisma/seed.js",
+    "update-ranking": "node scripts/update-ranking.js"
   },
   "dependencies": {
     "@prisma/client": "^5.7.0",
+    "csv-parse": "^6.1.0",
+    "csv-parser": "^3.0.0",
     "emailjs-com": "^3.2.0",
     "html2canvas": "^1.4.1",
     "jspdf": "^3.0.1",
