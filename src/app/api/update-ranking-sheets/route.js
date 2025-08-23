@@ -1,0 +1,259 @@
+import { NextResponse } from 'next/server';
+import { google } from 'googleapis';
+import path from 'path';
+
+// Configuración de Google Drive
+const DRIVE_FOLDER_ID = '1gCcJiNomfpbvPVtL8uYrjqJpgeBA9Yl2';
+
+// Configurar credenciales (desde archivo local o variables de entorno)
+function getCredentials() {
+  if (process.env.GOOGLE_SERVICE_ACCOUNT_KEY) {
+    // En producción, usar variable de entorno
+    return JSON.parse(process.env.GOOGLE_SERVICE_ACCOUNT_KEY);
+  } else {
+    // En desarrollo, usar archivo local
+    const CREDENTIALS_PATH = path.join(process.cwd(), 'credentials', 'saidcoach-occim-ab5036613f0e.json');
+    return require(CREDENTIALS_PATH);
+  }
+}
+
+export async function POST() {
+  try {
+    console.log('🔄 Iniciando actualización del ranking desde Google Sheets...');
+
+    // Autenticar con Google APIs
+    const credentials = getCredentials();
+    const auth = new google.auth.GoogleAuth({
+      credentials: credentials,
+      scopes: [
+        'https://www.googleapis.com/auth/spreadsheets.readonly',
+        'https://www.googleapis.com/auth/drive.readonly'
+      ]
+    });
+
+    const drive = google.drive({ version: 'v3', auth });
+    const sheets = google.sheets({ version: 'v4', auth });
+    const participantScores = {};
+
+    // Buscar todos los archivos de Google Sheets en la carpeta que contengan "Lección"
+    console.log(`📁 Buscando sheets en carpeta: ${DRIVE_FOLDER_ID}`);
+    
+    const response = await drive.files.list({
+      q: `'${DRIVE_FOLDER_ID}' in parents and mimeType='application/vnd.google-apps.spreadsheet' and name contains 'Lección'`,
+      fields: 'files(id, name)'
+    });
+
+    const sheetFiles = response.data.files || [];
+    console.log(`📊 Encontrados ${sheetFiles.length} sheets de lecciones`);
+
+    if (sheetFiles.length === 0) {
+      console.log('⚠️ No se encontraron sheets de lecciones en la carpeta');
+      return NextResponse.json(getStaticData());
+    }
+
+    // Procesar cada Google Sheet encontrado
+    for (const file of sheetFiles) {
+      const lessonName = extractLessonName(file.name);
+      const sheetId = file.id;
+      try {
+        console.log(`📊 Procesando ${lessonName}: ${sheetId}`);
+
+        // Leer datos del sheet (asumiendo que están en la primera hoja)
+        const response = await sheets.spreadsheets.values.get({
+          spreadsheetId: sheetId,
+          range: 'A:Z', // Leer todas las columnas
+        });
+
+        const rows = response.data.values;
+        if (!rows || rows.length === 0) {
+          console.log(`⚠️ No hay datos en ${lessonName}`);
+          continue;
+        }
+
+        // Primera fila son los headers
+        const headers = rows[0];
+        const dataRows = rows.slice(1);
+
+        // Encontrar índices de columnas importantes
+        const nombreIndex = headers.findIndex(h => h && h.toLowerCase().includes('nombre'));
+        const apellidoIndex = headers.findIndex(h => h && h.toLowerCase().includes('apellido'));
+        const puntuacionIndex = headers.findIndex(h => h && (h.toLowerCase().includes('puntuación') || h.toLowerCase().includes('puntuacion')));
+
+        if (nombreIndex === -1 || apellidoIndex === -1 || puntuacionIndex === -1) {
+          console.log(`⚠️ No se encontraron las columnas necesarias en ${lessonName}`);
+          continue;
+        }
+
+        // Agrupar respuestas por participante para manejar duplicados
+        const participantResponses = {};
+        
+        dataRows.forEach((row, index) => {
+          if (!row || row.length === 0) return;
+
+          const firstName = row[nombreIndex] || '';
+          const lastName = row[apellidoIndex] || '';
+          const scoreText = row[puntuacionIndex] || '0';
+          const timestamp = row[0] || ''; // Primera columna suele ser timestamp
+          
+          const rawFullName = `${firstName} ${lastName}`.trim();
+          
+          if (rawFullName && rawFullName !== '') {
+            // Normalizar el nombre para comparación
+            const normalizedName = normalizeName(rawFullName);
+            
+            // Inicializar array de respuestas para este participante normalizado
+            if (!participantResponses[normalizedName]) {
+              participantResponses[normalizedName] = [];
+            }
+            
+            // Agregar esta respuesta
+            participantResponses[normalizedName].push({
+              rawName: rawFullName,
+              score: parseScore(scoreText),
+              timestamp: timestamp,
+              rowIndex: index
+            });
+          }
+        });
+
+        // Procesar cada participante y usar solo la respuesta más reciente
+        for (const [normalizedName, responses] of Object.entries(participantResponses)) {
+          // Ordenar por timestamp descendente (más reciente primero)
+          responses.sort((a, b) => {
+            // Si hay timestamps, usarlos; si no, usar índice de fila
+            if (a.timestamp && b.timestamp) {
+              return new Date(b.timestamp) - new Date(a.timestamp);
+            }
+            return b.rowIndex - a.rowIndex;
+          });
+          
+          // Tomar solo la respuesta más reciente
+          const latestResponse = responses[0];
+          
+          if (responses.length > 1) {
+            console.log(`⚠️ ${latestResponse.rawName} tiene ${responses.length} respuestas en ${lessonName}. Usando la más reciente.`);
+          }
+          
+          // Buscar si ya existe este participante en el scoring global
+          let canonicalName = null;
+          for (const existingName of Object.keys(participantScores)) {
+            if (normalizeName(existingName) === normalizedName) {
+              canonicalName = existingName;
+              break;
+            }
+          }
+          
+          // Si no existe, usar el nombre de la respuesta más reciente como canónico
+          if (!canonicalName) {
+            canonicalName = latestResponse.rawName;
+          }
+          
+          // Inicializar participante si no existe
+          if (!participantScores[canonicalName]) {
+            participantScores[canonicalName] = {
+              name: canonicalName,
+              points: 0,
+              lessons: [],
+              responses: []
+            };
+          }
+          
+          // Verificar si ya procesamos esta lección para este participante
+          const responseKey = `${lessonName}`;
+          if (!participantScores[canonicalName].responses.includes(responseKey)) {
+            participantScores[canonicalName].points += latestResponse.score;
+            participantScores[canonicalName].lessons.push(lessonName);
+            participantScores[canonicalName].responses.push(responseKey);
+          }
+        }
+
+      } catch (sheetError) {
+        console.error(`❌ Error procesando ${lessonName}:`, sheetError.message);
+      }
+    }
+
+    // Convertir a array y ordenar por puntos
+    const ranking = Object.values(participantScores)
+      .sort((a, b) => b.points - a.points)
+      .map((participant, index) => ({
+        name: participant.name,
+        points: participant.points,
+        lessons: [...new Set(participant.lessons)], // Eliminar duplicados
+        avatar: getAvatar(index),
+        position: index + 1
+      }));
+
+    const rankingData = {
+      lastUpdate: new Date().toISOString(),
+      participants: ranking,
+      totalParticipants: ranking.length,
+      totalPoints: ranking.reduce((sum, p) => sum + p.points, 0),
+      averagePoints: ranking.length > 0 ? Math.round(ranking.reduce((sum, p) => sum + p.points, 0) / ranking.length) : 0
+    };
+
+    console.log('✅ Ranking actualizado exitosamente desde Google Sheets');
+    console.log(`📈 Total participantes: ${rankingData.totalParticipants}`);
+    console.log(`🏆 Líder actual: ${ranking[0]?.name} (${ranking[0]?.points} puntos)`);
+
+    return NextResponse.json(rankingData);
+
+  } catch (error) {
+    console.error('❌ Error actualizando ranking desde Sheets:', error);
+    return NextResponse.json(getStaticData(), { status: 500 });
+  }
+}
+
+// Función auxiliar para extraer nombre de lección del nombre del archivo
+function extractLessonName(fileName) {
+  // Buscar patrón "Lección X" en el nombre del archivo
+  const match = fileName.match(/Lección\s*(\d+)/i);
+  if (match) {
+    return `Lección ${match[1]}`;
+  }
+  return fileName;
+}
+
+// Función auxiliar para normalizar nombres
+function normalizeName(name) {
+  if (!name || typeof name !== 'string') return '';
+  
+  return name
+    .toLowerCase()
+    .normalize('NFD')
+    .replace(/[\u0300-\u036f]/g, '')
+    .replace(/[^\w\s]/g, '')
+    .replace(/\s+/g, ' ')
+    .trim();
+}
+
+// Función auxiliar para parsear puntuación
+function parseScore(scoreText) {
+  if (typeof scoreText === 'string') {
+    const match = scoreText.match(/(\d+)/);
+    return match ? parseInt(match[1]) : 0;
+  }
+  return parseInt(scoreText) || 0;
+}
+
+// Función auxiliar para asignar avatar según posición
+function getAvatar(index) {
+  const avatars = ["🏆", "🥈", "🥉", "💪", "⭐", "🌟", "💫", "🎯", "🚀", "✨"];
+  return avatars[index] || "👤";
+}
+
+// Función auxiliar para datos estáticos como fallback
+function getStaticData() {
+  const staticParticipants = [
+    { name: "Ana María Guzmán", points: 60, lessons: ["Lección 6", "Lección 7", "Lección 8"], avatar: "🏆" },
+    { name: "Pablo Gómez", points: 60, lessons: ["Lección 6", "Lección 7", "Lección 8"], avatar: "🥈" },
+    { name: "Daniel Hevia", points: 60, lessons: ["Lección 6", "Lección 7", "Lección 8"], avatar: "🥉" }
+  ];
+  
+  return {
+    lastUpdate: new Date().toISOString(),
+    participants: staticParticipants,
+    totalParticipants: staticParticipants.length,
+    totalPoints: staticParticipants.reduce((sum, p) => sum + p.points, 0),
+    averagePoints: Math.round(staticParticipants.reduce((sum, p) => sum + p.points, 0) / staticParticipants.length)
+  };
+}

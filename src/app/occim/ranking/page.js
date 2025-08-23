@@ -4,15 +4,16 @@ import { useState, useEffect } from 'react';
 export default function RankingOCCIM() {
   const [participants, setParticipants] = useState([]);
   const [loading, setLoading] = useState(true);
-  const [lastUpdate, setLastUpdate] = useState(new Date());
+  const [lastUpdate, setLastUpdate] = useState(null);
+  const [mounted, setMounted] = useState(false);
 
   // Función para procesar archivos CSV y calcular puntos
   const calculateRanking = async () => {
     try {
       setLoading(true);
       
-      // Ejecutar el script de actualización del ranking
-      const response = await fetch('/api/update-ranking', {
+      // Ejecutar el script de actualización del ranking desde Google Sheets
+      const response = await fetch('/api/update-ranking-sheets', {
         method: 'POST',
         headers: {
           'Content-Type': 'application/json',
@@ -96,6 +97,7 @@ export default function RankingOCCIM() {
   };
 
   useEffect(() => {
+    setMounted(true);
     calculateRanking();
   }, []);
 
@@ -116,6 +118,20 @@ export default function RankingOCCIM() {
       default: return "bg-white";
     }
   };
+
+  // Evitar hidration mismatch mostrando loading hasta que el componente esté montado
+  if (!mounted) {
+    return (
+      <div className="bg-gray-100 min-h-screen px-4 py-6 sm:p-6">
+        <div className="max-w-4xl mx-auto space-y-8">
+          <div className="text-center">
+            <h1 className="text-4xl font-bold text-[#e79e00] mb-2">🏆 Ranking OCCIM</h1>
+            <p className="text-gray-600">Cargando...</p>
+          </div>
+        </div>
+      </div>
+    );
+  }
 
   return (
     <div className="bg-gray-100 min-h-screen px-4 py-6 sm:p-6">
@@ -140,7 +156,7 @@ export default function RankingOCCIM() {
             {loading ? '🔄 Actualizando...' : '🔄 Actualizar Ranking'}
           </button>
           <span className="text-sm text-gray-500">
-            Última actualización: {lastUpdate.toLocaleString('es-CL')}
+            Última actualización: {mounted && lastUpdate ? lastUpdate.toLocaleString('es-CL') : 'Cargando...'}
           </span>
         </div>
 
@@ -254,7 +270,7 @@ export default function RankingOCCIM() {
 
         {/* Pie de página */}
         <div className="text-center pt-4 text-sm text-gray-500">
-          © {new Date().getFullYear()} SaidCoach · Programa de Bienestar OCCIM
+          © {mounted ? new Date().getFullYear() : '2025'} SaidCoach · Programa de Bienestar OCCIM
         </div>
       </div>
     </div>
