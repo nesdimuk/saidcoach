@@ -7,18 +7,22 @@ const DRIVE_FOLDER_ID = '1gCcJiNomfpbvPVtL8uYrjqJpgeBA9Yl2';
 
 // Configurar credenciales (desde archivo local o variables de entorno)
 function getCredentials() {
+  console.log('🔍 Verificando credenciales...');
+  console.log('🔍 NODE_ENV:', process.env.NODE_ENV);
+  console.log('🔍 ¿Existe GOOGLE_SERVICE_ACCOUNT_KEY?:', !!process.env.GOOGLE_SERVICE_ACCOUNT_KEY);
+  
   if (process.env.GOOGLE_SERVICE_ACCOUNT_KEY) {
     // En producción, usar variable de entorno
     console.log('📋 Usando credenciales de variable de entorno');
     return JSON.parse(process.env.GOOGLE_SERVICE_ACCOUNT_KEY);
   } else {
     // En desarrollo, usar archivo local
-    console.log('📋 Usando credenciales de archivo local');
+    console.log('📋 Variable de entorno no encontrada, intentando archivo local');
     const CREDENTIALS_PATH = path.join(process.cwd(), 'credentials', 'saidcoach-occim-ab5036613f0e.json');
     const fs = require('fs');
     
     if (!fs.existsSync(CREDENTIALS_PATH)) {
-      throw new Error(`No se encontraron credenciales. Archivo no existe: ${CREDENTIALS_PATH}`);
+      throw new Error(`No se encontraron credenciales. Variable de entorno faltante y archivo no existe: ${CREDENTIALS_PATH}`);
     }
     
     return JSON.parse(fs.readFileSync(CREDENTIALS_PATH, 'utf8'));
