@@ -143,6 +143,8 @@ export async function POST() {
         });
 
         // Procesar cada participante y usar solo la respuesta más reciente
+        console.log(`🔍 ${lessonName}: Encontrados ${Object.keys(participantResponses).length} participantes únicos`);
+        
         for (const [normalizedName, responses] of Object.entries(participantResponses)) {
           // Ordenar por timestamp descendente (más reciente primero)
           responses.sort((a, b) => {
@@ -155,6 +157,8 @@ export async function POST() {
           
           // Tomar solo la respuesta más reciente
           const latestResponse = responses[0];
+          
+          console.log(`👤 Procesando: ${latestResponse.rawName} (${latestResponse.score} puntos)`);
           
           if (responses.length > 1) {
             console.log(`⚠️ ${latestResponse.rawName} tiene ${responses.length} respuestas en ${lessonName}. Usando la más reciente.`);
@@ -172,6 +176,7 @@ export async function POST() {
           // Si no existe, usar el nombre de la respuesta más reciente como canónico
           if (!canonicalName) {
             canonicalName = latestResponse.rawName;
+            console.log(`✨ Nuevo participante: ${canonicalName}`);
           }
           
           // Inicializar participante si no existe
@@ -190,6 +195,9 @@ export async function POST() {
             participantScores[canonicalName].points += latestResponse.score;
             participantScores[canonicalName].lessons.push(lessonName);
             participantScores[canonicalName].responses.push(responseKey);
+            console.log(`✅ ${canonicalName}: +${latestResponse.score} puntos por ${lessonName}`);
+          } else {
+            console.log(`⏭️ ${canonicalName}: Ya procesada ${lessonName}`);
           }
         }
 
