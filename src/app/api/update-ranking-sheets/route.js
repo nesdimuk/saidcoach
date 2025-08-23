@@ -10,8 +10,20 @@ function getCredentials() {
   console.log('🔍 Verificando credenciales...');
   console.log('🔍 NODE_ENV:', process.env.NODE_ENV);
   console.log('🔍 ¿Existe GOOGLE_SERVICE_ACCOUNT_KEY?:', !!process.env.GOOGLE_SERVICE_ACCOUNT_KEY);
+  console.log('🔍 ¿Existe GOOGLE_SERVICE_ACCOUNT_BASE64?:', !!process.env.GOOGLE_SERVICE_ACCOUNT_BASE64);
   
-  if (process.env.GOOGLE_SERVICE_ACCOUNT_KEY) {
+  if (process.env.GOOGLE_SERVICE_ACCOUNT_BASE64) {
+    // Usar Base64 para evitar problemas con caracteres especiales
+    console.log('📋 Usando credenciales Base64 de variable de entorno');
+    try {
+      const base64String = process.env.GOOGLE_SERVICE_ACCOUNT_BASE64;
+      const credentialsString = Buffer.from(base64String, 'base64').toString('utf-8');
+      return JSON.parse(credentialsString);
+    } catch (parseError) {
+      console.error('❌ Error parseando credenciales Base64:', parseError.message);
+      throw new Error(`Error en formato de credenciales Base64: ${parseError.message}`);
+    }
+  } else if (process.env.GOOGLE_SERVICE_ACCOUNT_KEY) {
     // En producción, usar variable de entorno
     console.log('📋 Usando credenciales de variable de entorno');
     try {
