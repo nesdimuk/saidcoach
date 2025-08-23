@@ -31,7 +31,7 @@ function getCredentials() {
 
 export async function POST() {
   try {
-    console.log('🔄 Iniciando actualización del ranking desde Google Sheets...');
+    console.log('🔄 Iniciando actualización del ranking desde Google Sheets v2...');
 
     // Autenticar con Google APIs
     const credentials = getCredentials();
