@@ -14,7 +14,21 @@ function getCredentials() {
   if (process.env.GOOGLE_SERVICE_ACCOUNT_KEY) {
     // En producción, usar variable de entorno
     console.log('📋 Usando credenciales de variable de entorno');
-    return JSON.parse(process.env.GOOGLE_SERVICE_ACCOUNT_KEY);
+    try {
+      const credentialsString = process.env.GOOGLE_SERVICE_ACCOUNT_KEY;
+      console.log('📋 Longitud de credenciales:', credentialsString.length);
+      
+      // Limpiar caracteres de escape problemáticos
+      const cleanCredentials = credentialsString
+        .replace(/\\n/g, '\n')  // Convertir \\n a \n real
+        .replace(/\\\\/g, '\\') // Convertir \\\\ a \\ real
+        .trim();
+        
+      return JSON.parse(cleanCredentials);
+    } catch (parseError) {
+      console.error('❌ Error parseando JSON:', parseError.message);
+      throw new Error(`Error en formato de credenciales: ${parseError.message}`);
+    }
   } else {
     // En desarrollo, usar archivo local
     console.log('📋 Variable de entorno no encontrada, intentando archivo local');
