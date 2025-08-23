@@ -9,11 +9,19 @@ const DRIVE_FOLDER_ID = '1gCcJiNomfpbvPVtL8uYrjqJpgeBA9Yl2';
 function getCredentials() {
   if (process.env.GOOGLE_SERVICE_ACCOUNT_KEY) {
     // En producción, usar variable de entorno
+    console.log('📋 Usando credenciales de variable de entorno');
     return JSON.parse(process.env.GOOGLE_SERVICE_ACCOUNT_KEY);
   } else {
     // En desarrollo, usar archivo local
+    console.log('📋 Usando credenciales de archivo local');
     const CREDENTIALS_PATH = path.join(process.cwd(), 'credentials', 'saidcoach-occim-ab5036613f0e.json');
-    return require(CREDENTIALS_PATH);
+    const fs = require('fs');
+    
+    if (!fs.existsSync(CREDENTIALS_PATH)) {
+      throw new Error(`No se encontraron credenciales. Archivo no existe: ${CREDENTIALS_PATH}`);
+    }
+    
+    return JSON.parse(fs.readFileSync(CREDENTIALS_PATH, 'utf8'));
   }
 }
 
