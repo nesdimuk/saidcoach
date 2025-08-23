@@ -12,13 +12,24 @@ export default function RankingOCCIM() {
     try {
       setLoading(true);
       
-      // Ejecutar el script de actualización del ranking desde Google Sheets
-      const response = await fetch('/api/update-ranking-sheets', {
+      // Intentar primero Google Sheets, luego fallback a CSV
+      let response = await fetch('/api/update-ranking-sheets', {
         method: 'POST',
         headers: {
           'Content-Type': 'application/json',
         },
       });
+      
+      // Si falla Google Sheets, usar CSV como fallback
+      if (!response.ok) {
+        console.log('Google Sheets falló, usando CSV como fallback');
+        response = await fetch('/api/update-ranking', {
+          method: 'POST',
+          headers: {
+            'Content-Type': 'application/json',
+          },
+        });
+      }
       
       if (response.ok) {
         const data = await response.json();
