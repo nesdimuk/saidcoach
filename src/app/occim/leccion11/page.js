@@ -19,7 +19,7 @@ export default function Leccion11() {
             <iframe
               className="w-full h-full" // El iframe llenará el 100% del ancho y alto de su contenedor padre.
               src="https://www.youtube.com/embed/29zz3niaZo8" // URL del YouTube Short de la Lección 11
-              title="Lección 11 – La mejor inversión es en ti mismo"
+              title="Lección 11 – Tu cuerpo recuerda lo que repites"
               frameBorder="0"
               allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
               allowFullScreen
