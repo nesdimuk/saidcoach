@@ -6,7 +6,7 @@ export default function Leccion11() {
       {/* Contenedor central de contenido con más espaciado vertical. */}
       <div className="w-full mx-auto space-y-8">
         {/* Título de la lección. */}
-        <h1 className="text-3xl font-bold text-center text-[#e79e00]">🎧 Lección 11 – La mejor inversión es en ti mismo</h1>
+        <h1 className="text-3xl font-bold text-center text-[#e79e00]">🎧 Lección 11 – Tu cuerpo recuerda lo que repites</h1>
 
         {/* Contenedor del video. */}
         <div className="w-full">
