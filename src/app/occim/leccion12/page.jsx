@@ -1,3 +1,4 @@
+import OccimLayout from "@/components/OccimLayout";
 export default function Leccion12() {
   return (
     // Contenedor principal con fondo gris y padding responsivo.
