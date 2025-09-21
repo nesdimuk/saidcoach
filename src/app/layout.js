@@ -20,9 +20,14 @@ export default function RootLayout({ children }) {
 
         <footer className="mt-16 pt-8 border-t border-[#f4f1ec]/20 text-sm text-[#f4deb7] text-center">
           <div className="max-w-4xl mx-auto flex flex-col md:flex-row justify-between items-center px-4">
-            <p className="mb-4 md:mb-0">
-              © {new Date().getFullYear()} SaidCoach. Todos los derechos reservados.
-            </p>
+           <p className="mb-4 md:mb-0">
+  © {new Date().getFullYear()} SaidCoach. Todos los derechos reservados.
+  <br />
+  Razón social: Marcelo Esteban Said Yueng | RUT 13.975.143-4
+  <br />
+  Dirección: Av. José Domingo Cañas 2550, Depto 608, Ñuñoa, Santiago, Chile
+</p>
+
             <div className="flex space-x-4">
               <a
                 href="https://wa.me/56995995678"
