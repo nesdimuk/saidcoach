@@ -17,7 +17,7 @@ export default function PlanGenerator() {
     const [logo, setLogo] = useState('');
     const [macroChartInstance, setMacroChartInstance] = useState(null);
 
-    const handleSubmit = async (event: React.FormEvent<HTMLFormElement>) => {
+    const handleSubmit = async (event) => {
         event.preventDefault();
         setLoading(true);
 
@@ -88,13 +88,13 @@ export default function PlanGenerator() {
 
             const parsedPlan = JSON.parse(planText);
             setPlanData(parsedPlan);
-            setTraineeName(alumno.nombre as string);
+            setTraineeName(alumno.nombre);
             
             if (macroChartInstance) {
                 macroChartInstance.destroy();
             }
 
-            const ctx = document.getElementById('macro-chart') as HTMLCanvasElement;
+            const ctx = document.getElementById('macro-chart');
             if (ctx) {
                 const totals = parsedPlan.totales_diarios;
                 const proteinCals = parseInt(totals.proteinas) * 4;
@@ -164,18 +164,18 @@ export default function PlanGenerator() {
             }
         } catch (error) {
             console.error('Error:', error);
-            alert(`Hubo un error al generar el plan: ${(error as Error).message}`);
+            alert(`Hubo un error al generar el plan: ${error.message}`);
         } finally {
             setLoading(false);
         }
     };
 
-    const handleLogoChange = (event: React.ChangeEvent<HTMLInputElement>) => {
-        const file = event.target.files?.[0];
+    const handleLogoChange = (event) => {
+        const file = event.target.files[0];
         if (file) {
             const reader = new FileReader();
             reader.onload = (e) => {
-                setLogo(e.target?.result as string);
+                setLogo(e.target.result);
             };
             reader.readAsDataURL(file);
         }
@@ -250,7 +250,7 @@ export default function PlanGenerator() {
                                     <label htmlFor="alimentos" className="block text-sm font-medium text-gray-700">Alimentos Disponibles</label>
                                     <textarea id="alimentos" name="alimentos" rows={3} className="form-input mt-1" placeholder="Ej: Pollo, arroz, brócoli, avena, huevos..."></textarea>
                                 </div>
-
+                                
                                 <div className="pt-4">
                                     <h2 className="text-xl font-semibold mb-4">2. Personalización</h2>
                                     <label htmlFor="logo" className="block text-sm font-medium text-gray-700">Logo del Entrenador (Opcional)</label>
@@ -305,7 +305,7 @@ export default function PlanGenerator() {
                                 </div>
                                 
                                 <div id="plan-details" className="mt-8 space-y-6">
-                                    {planData.plan.map((meal: any, index: number) => (
+                                    {planData.plan.map((meal, index) => (
                                         <div key={index} className="bg-gray-50 p-4 rounded-lg">
                                             <h4 className="font-bold text-lg text-gray-800">{meal.comida}</h4>
                                             <p className="mt-2 text-gray-600">{meal.receta}</p>
@@ -320,7 +320,7 @@ export default function PlanGenerator() {
                                 </div>
                                 
                                 <div className="mt-8 pt-6 border-t border-gray-200 flex flex-col sm:flex-row gap-4">
-                                    <button onClick={() => generateAndSavePdf(planData, traineeName)} className="btn-primary">📄 Guardar como PDF</button>
+                                    <button onClick={() => generateAndSavePdf(planData, traineeName, logo)} className="btn-primary">📄 Guardar como PDF</button>
                                     <button className="btn-secondary w-full sm:w-auto">🔗 Compartir Enlace</button>
                                 </div>
                             </div>
@@ -339,3 +339,4 @@ export default function PlanGenerator() {
         </div>
     );
 }
+
