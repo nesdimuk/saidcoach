@@ -1,6 +1,25 @@
 import { createHash, createHmac } from "crypto";
 
-function toAmzDate(date) {
+type Credentials = {
+  accessKeyId: string;
+  secretAccessKey: string;
+};
+
+type S3ClientConfig = {
+  region: string;
+  endpoint: string;
+  credentials: Credentials;
+};
+
+type PutObjectInput = {
+  Bucket: string;
+  Key: string;
+  Body: Buffer;
+  ContentType?: string;
+  ACL?: string;
+};
+
+function toAmzDate(date: Date) {
   const yyyy = date.getUTCFullYear();
   const mm = String(date.getUTCMonth() + 1).padStart(2, "0");
   const dd = String(date.getUTCDate()).padStart(2, "0");
@@ -13,42 +32,44 @@ function toAmzDate(date) {
   };
 }
 
-function hash(value) {
+function hash(value: string | Buffer) {
   return createHash("sha256").update(value).digest("hex");
 }
 
-function getSigningKey(secret, dateStamp, region, service) {
+function getSigningKey(secret: string, dateStamp: string, region: string, service: string) {
   const kDate = createHmac("sha256", `AWS4${secret}`).update(dateStamp).digest();
   const kRegion = createHmac("sha256", kDate).update(region).digest();
   const kService = createHmac("sha256", kRegion).update(service).digest();
   return createHmac("sha256", kService).update("aws4_request").digest();
 }
 
-function encodeRfc3986(url) {
+function encodeRfc3986(url: string) {
   return encodeURIComponent(url).replace(/[!*'()]/g, (c) => `%${c.charCodeAt(0).toString(16).toUpperCase()}`);
 }
 
-function encodePath(path) {
-  return path
+function encodePath(pathname: string) {
+  return pathname
     .split("/")
     .map((segment) => encodeRfc3986(segment))
     .join("/");
 }
 
-class PutObjectCommand {
-  constructor(input) {
-    this.input = input;
-  }
+export class PutObjectCommand {
+  constructor(readonly input: PutObjectInput) {}
 }
 
-class S3Client {
-  constructor(config) {
+export class S3Client {
+  private readonly region: string;
+  private readonly endpoint: URL;
+  private readonly credentials: Credentials;
+
+  constructor(config: S3ClientConfig) {
     this.region = config.region;
     this.endpoint = new URL(config.endpoint);
     this.credentials = config.credentials;
   }
 
-  async send(command) {
+  async send(command: PutObjectCommand) {
     const { Bucket, Key, Body, ContentType, ACL } = command.input;
     const path = `/${Bucket}/${encodePath(Key)}`;
     const url = new URL(path, this.endpoint);
@@ -58,7 +79,7 @@ class S3Client {
     const host = url.host;
     const payloadHash = hash(Body);
 
-    const headers = {
+    const headers: Record<string, string> = {
       host,
       "x-amz-content-sha256": payloadHash,
       "x-amz-date": amzDate,
@@ -92,12 +113,7 @@ class S3Client {
     ].join("\n");
 
     const credentialScope = `${dateStamp}/${this.region}/${service}/aws4_request`;
-    const stringToSign = [
-      "AWS4-HMAC-SHA256",
-      amzDate,
-      credentialScope,
-      hash(canonicalRequest),
-    ].join("\n");
+    const stringToSign = ["AWS4-HMAC-SHA256", amzDate, credentialScope, hash(canonicalRequest)].join("\n");
 
     const signingKey = getSigningKey(this.credentials.secretAccessKey, dateStamp, this.region, service);
     const signature = createHmac("sha256", signingKey).update(stringToSign).digest("hex");
@@ -125,15 +141,8 @@ class S3Client {
     });
 
     if (!response.ok) {
-      let errorText = "";
-      try {
-        errorText = await response.text();
-      } catch (err) {
-        errorText = "";
-      }
+      const errorText = await response.text().catch(() => "");
       throw new Error(`Failed to upload object to S3: ${response.status} ${response.statusText} ${errorText}`.trim());
     }
   }
 }
-
-export { PutObjectCommand, S3Client };

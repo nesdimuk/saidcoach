@@ -1,13 +1,12 @@
-import { NextResponse } from "next/server";
-import { PrismaClient } from "@prisma/client";
+import { NextRequest, NextResponse } from "next/server";
 import { randomUUID } from "crypto";
 import path from "path";
 import fs from "fs/promises";
+import { PutObjectCommand, S3Client } from "@aws-sdk/client-s3";
 
-import { PutObjectCommand, S3Client } from "@/lib/s3-client";
+import { prisma } from "@/lib/prisma";
 
-const prisma = new PrismaClient();
-const BUCKET = process.env.STORAGE_BUCKET_NAME || "logos";
+const BUCKET = process.env.STORAGE_BUCKET_NAME ?? "logos";
 
 function getS3Client() {
   const endpoint = process.env.STORAGE_BUCKET_URL;
@@ -19,13 +18,16 @@ function getS3Client() {
   }
 
   return new S3Client({
-    region: process.env.STORAGE_REGION || "auto",
+    region: process.env.STORAGE_REGION ?? "auto",
     endpoint,
-    credentials: { accessKeyId, secretAccessKey },
+    credentials: {
+      accessKeyId,
+      secretAccessKey,
+    },
   });
 }
 
-async function uploadToLocal(buffer, trainerId, filename) {
+async function uploadToLocal(buffer: Buffer, trainerId: string, filename: string) {
   const dir = path.join(process.cwd(), "public", "logos", `trainer_${trainerId}`);
   await fs.mkdir(dir, { recursive: true });
   const filePath = path.join(dir, filename);
@@ -33,7 +35,7 @@ async function uploadToLocal(buffer, trainerId, filename) {
   return `/logos/trainer_${trainerId}/${filename}`;
 }
 
-function guessExtension(file) {
+function getFileExtension(file: File) {
   const mime = file.type || "image/png";
   if (mime.includes("jpeg") || mime.includes("jpg")) return "jpg";
   if (mime.includes("svg")) return "svg";
@@ -42,40 +44,43 @@ function guessExtension(file) {
   return "png";
 }
 
-export async function POST(req) {
+export async function POST(req: NextRequest) {
   const form = await req.formData();
   const file = form.get("file");
   const trainerId = form.get("trainerId")?.toString();
 
-  if (!file || !trainerId) {
-    return NextResponse.json(
-      { error: "Faltan parámetros obligatorios" },
-      { status: 400 },
-    );
+  if (!(file instanceof File) || !trainerId) {
+    return NextResponse.json({ error: "Faltan parámetros obligatorios" }, { status: 400 });
   }
 
   const arrayBuffer = await file.arrayBuffer();
   const buffer = Buffer.from(arrayBuffer);
-  const extension = guessExtension(file);
+  const extension = getFileExtension(file);
   const key = `trainer_${trainerId}/${randomUUID()}.${extension}`;
 
   const s3Client = getS3Client();
-  let logoUrl;
+  let logoUrl: string;
 
   if (s3Client) {
-    const endpoint = process.env.STORAGE_BUCKET_URL.replace(/\/$/, "");
-    await s3Client.send(
-      new PutObjectCommand({
-        Bucket: BUCKET,
-        Key: key,
-        Body: buffer,
-        ContentType: file.type || "image/png",
-        ACL: "public-read",
-      }),
-    );
+    const endpoint = process.env.STORAGE_BUCKET_URL?.replace(/\/$/, "");
+    try {
+      await s3Client.send(
+        new PutObjectCommand({
+          Bucket: BUCKET,
+          Key: key,
+          Body: buffer,
+          ContentType: file.type || "image/png",
+          ACL: "public-read",
+        }),
+      );
+    } catch (error) {
+      console.error("No se pudo subir el logo al almacenamiento S3", error);
+      return NextResponse.json({ error: "No se pudo subir el logo" }, { status: 502 });
+    }
+
     logoUrl = `${endpoint}/${BUCKET}/${key}`;
   } else {
-    const filename = key.split("/").pop() || `${randomUUID()}.${extension}`;
+    const filename = key.split("/").pop() ?? `${randomUUID()}.${extension}`;
     logoUrl = await uploadToLocal(buffer, trainerId, filename);
   }
 
@@ -86,10 +91,7 @@ export async function POST(req) {
     });
   } catch (error) {
     console.error("No se pudo actualizar el entrenador", error);
-    return NextResponse.json(
-      { error: "Entrenador no encontrado" },
-      { status: 404 },
-    );
+    return NextResponse.json({ error: "Entrenador no encontrado" }, { status: 404 });
   }
 
   return NextResponse.json({ logoUrl });
