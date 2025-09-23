@@ -143,23 +143,43 @@ model Progress {
   id         String   @id @default(cuid())
   userId     String
   user       User     @relation(fields: [userId], references: [id])
-  
+
   date       DateTime @default(now())
-  
+
   // Progreso nutricional
   consumedP  Float?
   consumedC  Float?
   consumedG  Float?
   consumedV  Float?
-  
+
   // Progreso de entrenamiento
   workoutCompleted Boolean @default(false)
   exercisesCompleted Int   @default(0)
-  
+
   // Métricas generales
   weight     Float?
   energy     Int?     // 1-10 escala
   mood       Int?     // 1-10 escala
-  
+
   notes      String?
+}
+
+model Trainer {
+  id        String   @id @default(cuid())
+  email     String   @unique
+  name      String
+  logoUrl   String?
+  Plans     Plan[]
+  createdAt DateTime @default(now())
+}
+
+model Plan {
+  id          String   @id @default(cuid())
+  trainerId   String
+  traineeName String
+  payloadJson String
+  resultJson  String
+  pdfUrl      String?
+  Trainer     Trainer  @relation(fields: [trainerId], references: [id])
+  createdAt   DateTime @default(now())
 }
