@@ -11,6 +11,7 @@ export default function Home() {
         <p className="text-sm md:text-lg mt-2 text-[#f4deb7] px-4 text-center leading-relaxed">
           En SaidCoach acompañamos personas, entrenadores y empresas con herramientas modernas, planes personalizados y seguimiento real.
         </p>
+        <a href="/habitos" className="text-[#e79c00] underline">App de Hábitos</a>
       </header>
 
       <section className="grid grid-cols-1 md:grid-cols-3 gap-6 px-4 bg-[#000000]">
