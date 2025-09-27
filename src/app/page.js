@@ -2,6 +2,25 @@ export default function Home() {
   return (
     <>
       <header className="text-center mb-10 animate-fade-up bg-[#000000] text-[#f4f1ec] py-8">
+        {/* Top Bar with Login/Register */}
+        <div className="flex justify-end px-4 mb-6">
+          <div className="flex space-x-3">
+            <a 
+              href="/auth/login" 
+              className="text-sm text-[#f4deb7] hover:text-[#e79c00] transition-colors"
+            >
+              Iniciar Sesión
+            </a>
+            <span className="text-[#f4deb7]">|</span>
+            <a 
+              href="/auth/register" 
+              className="text-sm bg-[#e79c00] text-white px-3 py-1 rounded-lg hover:bg-[#d68c00] transition-colors"
+            >
+              Crear Cuenta
+            </a>
+          </div>
+        </div>
+        
         <img src="/saidcoach-logo.svg" alt="Logo SaidCoach" className="mx-auto h-20 md:h-24 mb-4" />
         <h1 className="text-2xl md:text-4xl font-bold leading-snug text-center px-4">
           ¿Necesitas un coach que te ayude a lograr tus objetivos?<br />
@@ -11,6 +30,16 @@ export default function Home() {
         <p className="text-sm md:text-lg mt-2 text-[#f4deb7] px-4 text-center leading-relaxed">
           En SaidCoach acompañamos personas, entrenadores y empresas con herramientas modernas, planes personalizados y seguimiento real.
         </p>
+        
+        {/* CTA Button */}
+        <div className="mt-6">
+          <a 
+            href="/auth/register" 
+            className="inline-block bg-[#e79c00] text-white px-8 py-3 rounded-lg font-semibold text-lg hover:bg-[#d68c00] transition-colors shadow-lg"
+          >
+            🚀 Comenzar Gratis
+          </a>
+        </div>
       </header>
 
       <section className="grid grid-cols-1 md:grid-cols-3 gap-6 px-4 bg-[#000000]">

@@ -1,6 +1,7 @@
 'use client';
 
 import { useState, useEffect } from 'react';
+import { useRouter } from 'next/navigation';
 import { NutritionPlanGenerator } from '../../lib/plan-generator/nutrition';
 import { WorkoutPlanGenerator } from '../../lib/plan-generator/workout';
 
@@ -10,26 +11,38 @@ export default function Dashboard() {
   const [workoutPlan, setWorkoutPlan] = useState(null);
   const [activeTab, setActiveTab] = useState('overview');
   const [loading, setLoading] = useState(true);
+  const router = useRouter();
 
   useEffect(() => {
     loadUserData();
     loadPlans();
   }, []);
 
-  const loadUserData = () => {
-    // Por ahora usamos datos de ejemplo, luego conectar con DB
-    const mockUser = {
-      id: '1',
-      name: 'Usuario Demo',
-      email: 'demo@saidcoach.com',
-      age: 30,
-      weight: 70,
-      height: 170,
-      gender: 'FEMALE',
-      activityLevel: 'MODERATE',
-      goal: 'WEIGHT_LOSS'
-    };
-    setUser(mockUser);
+  const loadUserData = async () => {
+    try {
+      const response = await fetch('/api/auth/me');
+      
+      if (response.ok) {
+        const data = await response.json();
+        const userData = data.user;
+        
+        // Si el usuario no ha completado su perfil, redirigir al onboarding
+        // Verificamos que tenga los campos más importantes
+        if (!userData.name || !userData.goal) {
+          router.push('/onboarding');
+          return;
+        }
+        
+        setUser(userData);
+      } else {
+        // Si no está autenticado, redirigir a login
+        router.push('/auth/login');
+        return;
+      }
+    } catch (error) {
+      console.error('Error loading user data:', error);
+      router.push('/auth/login');
+    }
   };
 
   const loadPlans = async () => {
@@ -110,17 +123,22 @@ export default function Dashboard() {
           <div className="flex justify-between items-center py-4">
             <div>
               <h1 className="text-2xl font-bold text-gray-900">
-                ¡Hola, {user?.name}! 👋
+                ¡Hola, {user?.name || user?.email}! 👋
               </h1>
-              <p className="text-gray-600">Tu plan personalizado te espera</p>
+              <p className="text-gray-600">
+                {user?.membershipType === 'FREE' ? 'Cuenta Gratuita' : `Membresía ${user?.membershipType}`} • Tu plan personalizado te espera
+              </p>
             </div>
-            <button
-              onClick={generateNewPlans}
-              className="bg-[#e79c00] text-white px-4 py-2 rounded-lg hover:bg-[#d68c00] transition"
-              disabled={loading}
-            >
-              {nutritionPlan || workoutPlan ? 'Renovar Planes' : 'Generar Planes'}
-            </button>
+            <div className="flex items-center space-x-4">
+              <button
+                onClick={generateNewPlans}
+                className="bg-[#e79c00] text-white px-4 py-2 rounded-lg hover:bg-[#d68c00] transition"
+                disabled={loading}
+              >
+                {nutritionPlan || workoutPlan ? 'Renovar Planes' : 'Generar Planes'}
+              </button>
+              <UserMenu user={user} />
+            </div>
           </div>
         </div>
       </header>
@@ -299,19 +317,19 @@ function NutritionTab({ nutritionPlan }) {
         <h2 className="text-xl font-semibold mb-4">Objetivos Nutricionales</h2>
         <div className="grid grid-cols-4 gap-4">
           <div className="text-center">
-            <div className="text-2xl font-bold text-[#e79c00]">{nutritionPlan.targets.P}</div>
+            <div className="text-2xl font-bold text-[#e79c00]">{nutritionPlan.profile?.dailyPortions?.P || nutritionPlan.targets?.P || 0}</div>
             <div className="text-sm text-gray-600">Proteínas</div>
           </div>
           <div className="text-center">
-            <div className="text-2xl font-bold text-blue-600">{nutritionPlan.targets.C}</div>
+            <div className="text-2xl font-bold text-blue-600">{nutritionPlan.profile?.dailyPortions?.C || nutritionPlan.targets?.C || 0}</div>
             <div className="text-sm text-gray-600">Carbohidratos</div>
           </div>
           <div className="text-center">
-            <div className="text-2xl font-bold text-green-600">{nutritionPlan.targets.G}</div>
+            <div className="text-2xl font-bold text-green-600">{nutritionPlan.profile?.dailyPortions?.G || nutritionPlan.targets?.G || 0}</div>
             <div className="text-sm text-gray-600">Grasas</div>
           </div>
           <div className="text-center">
-            <div className="text-2xl font-bold text-emerald-600">{nutritionPlan.targets.V}</div>
+            <div className="text-2xl font-bold text-emerald-600">{nutritionPlan.profile?.dailyPortions?.V || nutritionPlan.targets?.V || 0}</div>
             <div className="text-sm text-gray-600">Verduras</div>
           </div>
         </div>
@@ -345,8 +363,8 @@ function NutritionTab({ nutritionPlan }) {
                   <p className="text-sm text-gray-600">{meal.type}</p>
                 </div>
                 <div className="text-right text-sm">
-                  <div>P: {meal.macros.P} | C: {meal.macros.C}</div>
-                  <div>G: {meal.macros.G} | V: {meal.macros.V}</div>
+                  <div>P: {meal.actualPortions?.P || meal.macros?.P || 0} | C: {meal.actualPortions?.C || meal.macros?.C || 0}</div>
+                  <div>G: {meal.actualPortions?.G || meal.macros?.G || 0} | V: {meal.actualPortions?.V || meal.macros?.V || 0}</div>
                 </div>
               </div>
               
@@ -355,7 +373,9 @@ function NutritionTab({ nutritionPlan }) {
                 {meal.ingredients.map((ingredient, idx) => (
                   <div key={idx} className="flex justify-between text-sm bg-gray-50 p-2 rounded">
                     <span>{ingredient.name}</span>
-                    <span className="text-gray-600">{ingredient.amount}</span>
+                    <span className="text-gray-600">
+                      {ingredient.portions ? `${ingredient.portions} porción${ingredient.portions !== 1 ? 'es' : ''}` : ingredient.amount || 'N/A'}
+                    </span>
                   </div>
                 ))}
               </div>
@@ -512,4 +532,93 @@ function ActionButton({ title, description, icon, href, onClick }) {
   }
 
   return <div onClick={onClick}>{buttonContent}</div>;
+}
+
+function UserMenu({ user }) {
+  const [isOpen, setIsOpen] = useState(false);
+  const router = useRouter();
+
+  const handleLogout = async () => {
+    try {
+      await fetch('/api/auth/logout', { method: 'POST' });
+      router.push('/auth/login');
+      router.refresh();
+    } catch (error) {
+      console.error('Error logging out:', error);
+    }
+  };
+
+  if (!user) return null;
+
+  return (
+    <div className="relative">
+      <button
+        onClick={() => setIsOpen(!isOpen)}
+        className="flex items-center space-x-2 p-2 rounded-lg hover:bg-gray-100 transition"
+      >
+        <div className="w-8 h-8 bg-[#e79c00] text-white rounded-full flex items-center justify-center font-semibold">
+          {(user.name || user.email)[0].toUpperCase()}
+        </div>
+        <span className="text-sm font-medium">{user.name || user.email.split('@')[0]}</span>
+        <svg className="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+          <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M19 9l-7 7-7-7" />
+        </svg>
+      </button>
+
+      {isOpen && (
+        <div className="absolute right-0 mt-2 w-48 bg-white rounded-lg shadow-lg border z-10">
+          <div className="p-3 border-b">
+            <div className="font-medium text-sm">{user.name || 'Usuario'}</div>
+            <div className="text-xs text-gray-500">{user.email}</div>
+            <div className="text-xs text-[#e79c00] font-semibold mt-1">
+              {user.membershipType === 'FREE' ? 'Cuenta Gratuita' : `Membresía ${user.membershipType}`}
+            </div>
+          </div>
+          
+          <div className="py-2">
+            <button
+              onClick={() => {
+                setIsOpen(false);
+                router.push('/perfil');
+              }}
+              className="w-full text-left px-4 py-2 text-sm hover:bg-gray-100 transition"
+            >
+              👤 Mi Perfil
+            </button>
+            
+            <button
+              onClick={() => {
+                setIsOpen(false);
+                router.push('/configuracion');
+              }}
+              className="w-full text-left px-4 py-2 text-sm hover:bg-gray-100 transition"
+            >
+              ⚙️ Configuración
+            </button>
+            
+            {user.membershipType === 'FREE' && (
+              <button
+                onClick={() => {
+                  setIsOpen(false);
+                  router.push('/mejorar-plan');
+                }}
+                className="w-full text-left px-4 py-2 text-sm hover:bg-gray-100 transition text-[#e79c00] font-medium"
+              >
+                ⭐ Mejorar Plan
+              </button>
+            )}
+            
+            <hr className="my-2" />
+            
+            <button
+              onClick={handleLogout}
+              className="w-full text-left px-4 py-2 text-sm hover:bg-gray-100 transition text-red-600"
+            >
+              🚪 Cerrar Sesión
+            </button>
+          </div>
+        </div>
+      )}
+    </div>
+  );
 }

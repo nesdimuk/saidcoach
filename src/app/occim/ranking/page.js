@@ -112,20 +112,20 @@ export default function RankingOCCIM() {
     calculateRanking();
   }, []);
 
-  const getRankingIcon = (index) => {
-    switch (index) {
-      case 0: return "🥇";
-      case 1: return "🥈"; 
-      case 2: return "🥉";
-      default: return `${index + 1}°`;
-    }
+  const getRankingIcon = (participant, index) => {
+    // Si están empatados en primer lugar, todos llevan oro
+    if (participant.position === 1) return "🥇";
+    if (participant.position === 2) return "🥈";
+    if (participant.position === 3) return "🥉";
+    return `${participant.position}°`;
   };
 
-  const getRankingColor = (index) => {
-    switch (index) {
-      case 0: return "bg-gradient-to-r from-yellow-400 to-yellow-600 text-white";
-      case 1: return "bg-gradient-to-r from-gray-300 to-gray-500 text-white";
-      case 2: return "bg-gradient-to-r from-orange-400 to-orange-600 text-white";
+  const getRankingColor = (participant) => {
+    // Colorear según la posición real, no el índice del array
+    switch (participant.position) {
+      case 1: return "bg-gradient-to-r from-yellow-400 to-yellow-600 text-white";
+      case 2: return "bg-gradient-to-r from-gray-300 to-gray-500 text-white";
+      case 3: return "bg-gradient-to-r from-orange-400 to-orange-600 text-white";
       default: return "bg-white";
     }
   };
@@ -188,12 +188,15 @@ export default function RankingOCCIM() {
                 {participants.map((participant, index) => (
                   <tr 
                     key={participant.name} 
-                    className={`border-b hover:bg-gray-50 transition-colors ${getRankingColor(index)}`}
+                    className={`border-b hover:bg-gray-50 transition-colors ${getRankingColor(participant)}`}
                   >
                     <td className="px-6 py-4">
                       <div className="flex items-center space-x-2">
-                        <span className="text-2xl">{getRankingIcon(index)}</span>
-                        <span className="font-semibold text-lg">#{index + 1}</span>
+                        <span className="text-2xl">{getRankingIcon(participant, index)}</span>
+                        <span className="font-semibold text-lg">
+                          #{participant.position}
+                          {participant.isTied && <span className="text-sm ml-1">(empate)</span>}
+                        </span>
                       </div>
                     </td>
                     <td className="px-6 py-4">
@@ -227,11 +230,11 @@ export default function RankingOCCIM() {
                       <div className="w-16 bg-gray-200 rounded-full h-2">
                         <div 
                           className="bg-green-500 h-2 rounded-full transition-all duration-500"
-                          style={{ width: `${(participant.points / 60) * 100}%` }}
+                          style={{ width: `${(participant.points / 80) * 100}%` }}
                         ></div>
                       </div>
                       <span className="text-xs text-gray-500 mt-1 block">
-                        {Math.round((participant.points / 60) * 100)}%
+                        {Math.round((participant.points / 80) * 100)}%
                       </span>
                     </td>
                   </tr>

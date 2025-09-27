@@ -22,22 +22,44 @@ export class WorkoutPlanGenerator {
   }
 
   /**
-   * Parsea preferencias del usuario
+   * Parsea preferencias del usuario con algoritmo mejorado
    */
   parseUserPreferences(user) {
     const activityLevel = user.activityLevel || 'MODERATE';
-    const level = activityLevel === 'SEDENTARY' || activityLevel === 'LIGHT' 
-      ? 'BEGINNER'
-      : activityLevel === 'VERY_ACTIVE' 
-      ? 'ADVANCED' 
-      : 'INTERMEDIATE';
+    const age = user.age || 30;
+    const goal = user.goal || 'MAINTENANCE';
+    
+    // Algoritmo inteligente para determinar nivel
+    let level = 'INTERMEDIATE'; // default
+    
+    if (activityLevel === 'SEDENTARY') {
+      level = 'BEGINNER';
+    } else if (activityLevel === 'LIGHT') {
+      level = age > 50 ? 'BEGINNER' : 'INTERMEDIATE';
+    } else if (activityLevel === 'MODERATE') {
+      level = 'INTERMEDIATE';
+    } else if (activityLevel === 'ACTIVE') {
+      level = age > 45 ? 'INTERMEDIATE' : 'ADVANCED';
+    } else if (activityLevel === 'VERY_ACTIVE') {
+      level = 'ADVANCED';
+    }
 
-    const daysPerWeek = level === 'BEGINNER' ? 3 : level === 'INTERMEDIATE' ? 4 : 5;
+    // Días por semana basado en objetivo y nivel
+    let daysPerWeek;
+    if (goal === 'WEIGHT_LOSS') {
+      daysPerWeek = level === 'BEGINNER' ? 4 : level === 'INTERMEDIATE' ? 5 : 6;
+    } else if (goal === 'MUSCLE_GAIN') {
+      daysPerWeek = level === 'BEGINNER' ? 3 : level === 'INTERMEDIATE' ? 4 : 5;
+    } else { // MAINTENANCE
+      daysPerWeek = level === 'BEGINNER' ? 3 : 4;
+    }
 
     return {
-      goal: user.goal || 'MAINTENANCE',
+      goal,
       level,
-      daysPerWeek
+      daysPerWeek,
+      age,
+      activityLevel
     };
   }
 

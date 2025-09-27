@@ -179,7 +179,7 @@ export async function POST() {
           // Buscar si ya existe este participante en el scoring global
           let canonicalName = null;
           for (const existingName of Object.keys(participantScores)) {
-            if (normalizeName(existingName) === normalizedName) {
+            if (isSamePerson(existingName, latestResponse.rawName)) {
               canonicalName = existingName;
               break;
             }
@@ -219,15 +219,31 @@ export async function POST() {
     }
 
     // Convertir a array y ordenar por puntos
-    const ranking = Object.values(participantScores)
-      .sort((a, b) => b.points - a.points)
-      .map((participant, index) => ({
+    const sortedParticipants = Object.values(participantScores)
+      .sort((a, b) => b.points - a.points);
+    
+    // Asignar posiciones considerando empates
+    const ranking = [];
+    let currentPosition = 1;
+    
+    for (let i = 0; i < sortedParticipants.length; i++) {
+      const participant = sortedParticipants[i];
+      
+      // Si no es el primer participante y tiene diferentes puntos que el anterior
+      if (i > 0 && participant.points !== sortedParticipants[i - 1].points) {
+        currentPosition = i + 1;
+      }
+      
+      ranking.push({
         name: participant.name,
         points: participant.points,
         lessons: [...new Set(participant.lessons)], // Eliminar duplicados
-        avatar: getAvatar(index),
-        position: index + 1
-      }));
+        avatar: getAvatar(currentPosition - 1),
+        position: currentPosition,
+        isTied: i > 0 && participant.points === sortedParticipants[i - 1].points ||
+                i < sortedParticipants.length - 1 && participant.points === sortedParticipants[i + 1].points
+      });
+    }
 
     const rankingData = {
       lastUpdate: new Date().toISOString(),
@@ -270,6 +286,35 @@ function normalizeName(name) {
     .replace(/[^\w\s]/g, '')
     .replace(/\s+/g, ' ')
     .trim();
+}
+
+// Función para determinar si dos nombres pertenecen a la misma persona
+function isSamePerson(name1, name2) {
+  if (!name1 || !name2) return false;
+  
+  const normalized1 = normalizeName(name1);
+  const normalized2 = normalizeName(name2);
+  
+  // Si son exactamente iguales después de normalizar
+  if (normalized1 === normalized2) return true;
+  
+  // Dividir en palabras
+  const words1 = normalized1.split(' ').filter(w => w.length > 0);
+  const words2 = normalized2.split(' ').filter(w => w.length > 0);
+  
+  // Si uno de los nombres está completamente contenido en el otro
+  // Por ejemplo: "pablo gomez" está contenido en "pablo gomez gomez saavedra"
+  if (words1.length <= words2.length) {
+    const isContained = words1.every(word => words2.includes(word));
+    if (isContained) return true;
+  }
+  
+  if (words2.length <= words1.length) {
+    const isContained = words2.every(word => words1.includes(word));
+    if (isContained) return true;
+  }
+  
+  return false;
 }
 
 // Función auxiliar para parsear puntuación

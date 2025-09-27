@@ -13,8 +13,18 @@ datasource db {
 model User {
   id        String   @id @default(cuid())
   email     String   @unique
+  password  String   // Hash de la contraseña
   name      String?
   role      String   @default("CLIENT") // CLIENT, COACH, ADMIN
+  
+  // Estados de cuenta
+  isVerified    Boolean  @default(false)
+  isActive      Boolean  @default(true)
+  emailVerifiedAt DateTime?
+  
+  // Membresías
+  membershipType String  @default("FREE") // FREE, BASIC, PREMIUM, COACH
+  membershipExpiresAt DateTime?
   
   // Datos para generar planes
   age       Int?
@@ -24,13 +34,31 @@ model User {
   activityLevel String? // SEDENTARY, LIGHT, MODERATE, ACTIVE, VERY_ACTIVE
   goal      String?  // WEIGHT_LOSS, MAINTENANCE, MUSCLE_GAIN
   
+  // Tokens de autenticación
+  resetToken String?
+  resetTokenExpires DateTime?
+  verificationToken String?
+  
   // Relaciones
   nutritionPlans NutritionPlan[]
   workoutPlans   WorkoutPlan[]
   progress       Progress[]
+  sessions       UserSession[]
   
   createdAt DateTime @default(now())
   updatedAt DateTime @updatedAt
+}
+
+model UserSession {
+  id        String   @id @default(cuid())
+  userId    String
+  user      User     @relation(fields: [userId], references: [id], onDelete: Cascade)
+  token     String   @unique
+  expiresAt DateTime
+  createdAt DateTime @default(now())
+  
+  @@index([userId])
+  @@index([token])
 }
 
 model NutritionPlan {

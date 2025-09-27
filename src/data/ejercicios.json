@@ -1,0 +1,857 @@
+{
+  "ejercicios": [
+    {
+      "id": 1,
+      "nombre": "Ab Completo",
+      "archivo": "AbCompleto.gif",
+      "grupoMuscular": [
+        "core",
+        "abdominales"
+      ],
+      "implemento": "peso_corporal",
+      "dificultad": "intermedio",
+      "descripcion": "Ejercicio completo de abdominales que trabaja toda la zona core"
+    },
+    {
+      "id": 2,
+      "nombre": "Ab Crunch",
+      "archivo": "AbCrunch.gif",
+      "grupoMuscular": [
+        "core",
+        "abdominales"
+      ],
+      "implemento": "peso_corporal",
+      "dificultad": "principiante",
+      "descripcion": "Ejercicio básico de abdominales superiores"
+    },
+    {
+      "id": 3,
+      "nombre": "Aperturas en Y",
+      "archivo": "AperturasEnY.gif",
+      "grupoMuscular": [
+        "espalda",
+        "hombros"
+      ],
+      "implemento": "peso_corporal",
+      "dificultad": "principiante",
+      "descripcion": "Fortalecimiento de espalda alta y hombros posteriores"
+    },
+    {
+      "id": 4,
+      "nombre": "Bicho Muerto 2",
+      "archivo": "BichoMuerto2.gif",
+      "grupoMuscular": [
+        "core",
+        "abdominales"
+      ],
+      "implemento": "peso_corporal",
+      "dificultad": "principiante",
+      "descripcion": "Ejercicio de core que mejora la estabilidad y coordinación"
+    },
+    {
+      "id": 5,
+      "nombre": "Bird Dog",
+      "archivo": "BirdDog.gif",
+      "grupoMuscular": [
+        "core",
+        "espalda",
+        "gluteos"
+      ],
+      "implemento": "peso_corporal",
+      "dificultad": "principiante",
+      "descripcion": "Ejercicio de estabilidad que fortalece core y espalda baja"
+    },
+    {
+      "id": 6,
+      "nombre": "Bird Dog Alto",
+      "archivo": "BirdDogAlto.gif",
+      "grupoMuscular": [
+        "core",
+        "espalda",
+        "gluteos"
+      ],
+      "implemento": "peso_corporal",
+      "dificultad": "intermedio",
+      "descripcion": "Variación avanzada del bird dog"
+    },
+    {
+      "id": 7,
+      "nombre": "Burpee",
+      "archivo": "Burpee.gif",
+      "grupoMuscular": [
+        "cuerpo_completo",
+        "cardio"
+      ],
+      "implemento": "peso_corporal",
+      "dificultad": "avanzado",
+      "descripcion": "Ejercicio de alta intensidad que trabaja todo el cuerpo"
+    },
+    {
+      "id": 8,
+      "nombre": "Burpee Adaptado",
+      "archivo": "BurpeeAdaptado.gif",
+      "grupoMuscular": [
+        "cuerpo_completo",
+        "cardio"
+      ],
+      "implemento": "peso_corporal",
+      "dificultad": "intermedio",
+      "descripcion": "Versión modificada del burpee para principiantes"
+    },
+    {
+      "id": 9,
+      "nombre": "Burpee Sin Impacto",
+      "archivo": "BurpeeSinImpacto.gif",
+      "grupoMuscular": [
+        "cuerpo_completo",
+        "cardio"
+      ],
+      "implemento": "peso_corporal",
+      "dificultad": "intermedio",
+      "descripcion": "Burpee de bajo impacto para articulaciones sensibles"
+    },
+    {
+      "id": 10,
+      "nombre": "Burpee Sin Salto",
+      "archivo": "BurpeeSinSalto.gif",
+      "grupoMuscular": [
+        "cuerpo_completo",
+        "cardio"
+      ],
+      "implemento": "peso_corporal",
+      "dificultad": "intermedio",
+      "descripcion": "Variación del burpee sin el salto final"
+    },
+    {
+      "id": 11,
+      "nombre": "Caminata Oso Frontal",
+      "archivo": "CaminataOsoFrontal.gif",
+      "grupoMuscular": [
+        "core",
+        "brazos",
+        "hombros"
+      ],
+      "implemento": "peso_corporal",
+      "dificultad": "intermedio",
+      "descripcion": "Ejercicio de fuerza funcional que trabaja core y brazos"
+    },
+    {
+      "id": 12,
+      "nombre": "Caminata Oso Lateral",
+      "archivo": "CaminataOsoLateral.gif",
+      "grupoMuscular": [
+        "core",
+        "brazos",
+        "hombros"
+      ],
+      "implemento": "peso_corporal",
+      "dificultad": "intermedio",
+      "descripcion": "Variación lateral de la caminata del oso"
+    },
+    {
+      "id": 13,
+      "nombre": "Camino Manos + Rotación y Push-up",
+      "archivo": "CaminoManos+RotacionyPushup.gif",
+      "grupoMuscular": [
+        "cuerpo_completo",
+        "core",
+        "brazos"
+      ],
+      "implemento": "peso_corporal",
+      "dificultad": "avanzado",
+      "descripcion": "Ejercicio complejo que combina múltiples movimientos"
+    },
+    {
+      "id": 14,
+      "nombre": "Codo a Rodilla Contraria 2",
+      "archivo": "CodoaRodillaContraria2.gif",
+      "grupoMuscular": [
+        "core",
+        "abdominales"
+      ],
+      "implemento": "peso_corporal",
+      "dificultad": "principiante",
+      "descripcion": "Ejercicio de core que mejora la coordinación cruzada"
+    },
+    {
+      "id": 15,
+      "nombre": "Cossack Squat 2",
+      "archivo": "CossackSquat2.gif",
+      "grupoMuscular": [
+        "piernas",
+        "gluteos"
+      ],
+      "implemento": "peso_corporal",
+      "dificultad": "intermedio",
+      "descripción": "Sentadilla lateral que mejora flexibilidad y fuerza"
+    },
+    {
+      "id": 16,
+      "nombre": "Curtsy Lunge 2",
+      "archivo": "CurtsyLunge2.gif",
+      "grupoMuscular": [
+        "piernas",
+        "gluteos"
+      ],
+      "implemento": "peso_corporal",
+      "dificultad": "intermedio",
+      "descripcion": "Estocada en reverencia que enfatiza glúteos"
+    },
+    {
+      "id": 17,
+      "nombre": "Escaladores",
+      "archivo": "Escaladores.gif",
+      "grupoMuscular": [
+        "core",
+        "cardio",
+        "brazos"
+      ],
+      "implemento": "peso_corporal",
+      "dificultad": "intermedio",
+      "descripcion": "Ejercicio cardiovascular de alta intensidad"
+    },
+    {
+      "id": 18,
+      "nombre": "Escaladores Lentos",
+      "archivo": "EscaladoresLentos.gif",
+      "grupoMuscular": [
+        "core",
+        "brazos"
+      ],
+      "implemento": "peso_corporal",
+      "dificultad": "principiante",
+      "descripcion": "Versión controlada de los escaladores para mayor estabilidad"
+    },
+    {
+      "id": 19,
+      "nombre": "Estocada Atrás Alternadas 2",
+      "archivo": "EstocadaAtrasAlternadas2.gif",
+      "grupoMuscular": [
+        "piernas",
+        "gluteos"
+      ],
+      "implemento": "peso_corporal",
+      "dificultad": "principiante",
+      "descripcion": "Estocadas hacia atrás alternando piernas"
+    },
+    {
+      "id": 20,
+      "nombre": "Estocada Atrás Énfasis Glúteo Alternadas 2",
+      "archivo": "EstocadaAtrasEnfasisGluteoAlternadas2.gif",
+      "grupoMuscular": [
+        "gluteos",
+        "piernas"
+      ],
+      "implemento": "peso_corporal",
+      "dificultad": "intermedio",
+      "descripcion": "Estocada hacia atrás con énfasis en activación de glúteos"
+    },
+    {
+      "id": 21,
+      "nombre": "Estocada Atrás 1",
+      "archivo": "EstocadaAtrás1.gif",
+      "grupoMuscular": [
+        "piernas",
+        "gluteos"
+      ],
+      "implemento": "peso_corporal",
+      "dificultad": "principiante",
+      "descripcion": "Estocada básica hacia atrás"
+    },
+    {
+      "id": 23,
+      "nombre": "Estocada Lateral 2",
+      "archivo": "EstocadaLateral2.gif",
+      "grupoMuscular": [
+        "piernas",
+        "gluteos"
+      ],
+      "implemento": "peso_corporal",
+      "dificultad": "intermedio",
+      "descripcion": "Estocada hacia los lados que trabaja músculos estabilizadores"
+    },
+    {
+      "id": 24,
+      "nombre": "Estocada Split 1",
+      "archivo": "EstocadaSplit1.gif",
+      "grupoMuscular": [
+        "piernas",
+        "gluteos"
+      ],
+      "implemento": "peso_corporal",
+      "dificultad": "intermedio",
+      "descripcion": "Estocada con posición fija de piernas"
+    },
+    {
+      "id": 25,
+      "nombre": "Fondo Tríceps Colchoneta",
+      "archivo": "FondoTricepsColchoneta.gif",
+      "grupoMuscular": [
+        "brazos",
+        "triceps"
+      ],
+      "implemento": "peso_corporal",
+      "dificultad": "principiante",
+      "descripcion": "Ejercicio de tríceps realizado en el suelo"
+    },
+    {
+      "id": 26,
+      "nombre": "Fondos en Silla",
+      "archivo": "FondosEnSilla.gif",
+      "grupoMuscular": [
+        "brazos",
+        "triceps"
+      ],
+      "implemento": "silla",
+      "dificultad": "principiante",
+      "descripcion": "Ejercicio de tríceps usando una silla como apoyo"
+    },
+    {
+      "id": 27,
+      "nombre": "Frog Pump",
+      "archivo": "FrogPump.gif",
+      "grupoMuscular": [
+        "gluteos",
+        "piernas"
+      ],
+      "implemento": "peso_corporal",
+      "dificultad": "principiante",
+      "descripcion": "Elevación de cadera con pies juntos para activar glúteos"
+    },
+    {
+      "id": 28,
+      "nombre": "Jumping Jacks",
+      "archivo": "JumpingJacks.gif",
+      "grupoMuscular": [
+        "cardio",
+        "cuerpo_completo"
+      ],
+      "implemento": "peso_corporal",
+      "dificultad": "principiante",
+      "descripcion": "Ejercicio cardiovascular básico de saltos coordinados"
+    },
+    {
+      "id": 29,
+      "nombre": "Medio Burpee",
+      "archivo": "MedioBurpee.gif",
+      "grupoMuscular": [
+        "cuerpo_completo",
+        "cardio"
+      ],
+      "implemento": "peso_corporal",
+      "dificultad": "intermedio",
+      "descripcion": "Versión simplificada del burpee completo"
+    },
+    {
+      "id": 30,
+      "nombre": "Nadadores",
+      "archivo": "Nadadores.gif",
+      "grupoMuscular": [
+        "espalda",
+        "gluteos",
+        "core"
+      ],
+      "implemento": "peso_corporal",
+      "dificultad": "principiante",
+      "descripcion": "Ejercicio que fortalece la espalda baja y glúteos"
+    },
+    {
+      "id": 31,
+      "nombre": "Peso Muerto Mancuernas",
+      "archivo": "PesoMuertoMancuernas.gif",
+      "grupoMuscular": [
+        "piernas",
+        "gluteos",
+        "espalda"
+      ],
+      "implemento": "mancuernas",
+      "dificultad": "intermedio",
+      "descripcion": "Ejercicio compuesto con mancuernas para piernas y espalda"
+    },
+    {
+      "id": 32,
+      "nombre": "Peso Muerto Mancuernas 1 Pierna + Remo",
+      "archivo": "PesoMuertoMancuernas1Pierna+Remo.gif",
+      "grupoMuscular": [
+        "piernas",
+        "gluteos",
+        "espalda"
+      ],
+      "implemento": "mancuernas",
+      "dificultad": "avanzado",
+      "descripcion": "Ejercicio complejo que combina peso muerto unilateral con remo"
+    },
+    {
+      "id": 33,
+      "nombre": "Peso Muerto Mancuernas 1 Pierna",
+      "archivo": "PesoMuertoMancuernas1Pierna.gif",
+      "grupoMuscular": [
+        "piernas",
+        "gluteos",
+        "espalda"
+      ],
+      "implemento": "mancuernas",
+      "dificultad": "avanzado",
+      "descripcion": "Peso muerto unilateral que mejora equilibrio y fuerza"
+    },
+    {
+      "id": 34,
+      "nombre": "Plancha Alternada de Brazos",
+      "archivo": "PlanchaAlternadaDeBrazos.gif",
+      "grupoMuscular": [
+        "core",
+        "brazos",
+        "hombros"
+      ],
+      "implemento": "peso_corporal",
+      "dificultad": "intermedio",
+      "descripcion": "Plancha con movimiento alternado de brazos"
+    },
+    {
+      "id": 35,
+      "nombre": "Plancha Alternando Brazos",
+      "archivo": "PlanchaAlternandoBrazos.gif",
+      "grupoMuscular": [
+        "core",
+        "brazos",
+        "hombros"
+      ],
+      "implemento": "peso_corporal",
+      "dificultad": "intermedio",
+      "descripcion": "Variación de plancha con alternancia de brazos"
+    },
+    {
+      "id": 36,
+      "nombre": "Plancha Push Up",
+      "archivo": "PlanchaPushUp.gif",
+      "grupoMuscular": [
+        "core",
+        "brazos",
+        "pecho"
+      ],
+      "implemento": "peso_corporal",
+      "dificultad": "avanzado",
+      "descripcion": "Combinación de plancha con flexión de brazos"
+    },
+    {
+      "id": 37,
+      "nombre": "Plancha Rodillas Apoyadas",
+      "archivo": "PlanchaRodillasApoyadas.gif",
+      "grupoMuscular": [
+        "core",
+        "brazos"
+      ],
+      "implemento": "peso_corporal",
+      "dificultad": "principiante",
+      "descripcion": "Versión modificada de plancha para principiantes"
+    },
+    {
+      "id": 38,
+      "nombre": "Plancha y Extensión Cadera",
+      "archivo": "PlanchayExtCadera.gif",
+      "grupoMuscular": [
+        "core",
+        "gluteos",
+        "brazos"
+      ],
+      "implemento": "peso_corporal",
+      "dificultad": "intermedio",
+      "descripcion": "Plancha combinada con elevación de pierna"
+    },
+    {
+      "id": 39,
+      "nombre": "Puente Lateral 1",
+      "archivo": "PuenteLateral1.gif",
+      "grupoMuscular": [
+        "core",
+        "oblicuos"
+      ],
+      "implemento": "peso_corporal",
+      "dificultad": "intermedio",
+      "descripcion": "Ejercicio de core lateral que fortalece oblicuos"
+    },
+    {
+      "id": 40,
+      "nombre": "Puente Lateral 1 Rodilla Apoyada",
+      "archivo": "PuenteLateral1rodillaApoyada.gif",
+      "grupoMuscular": [
+        "core",
+        "oblicuos"
+      ],
+      "implemento": "peso_corporal",
+      "dificultad": "principiante",
+      "descripcion": "Versión modificada del puente lateral"
+    },
+    {
+      "id": 41,
+      "nombre": "Puente Lateral Brazo Extendido 1",
+      "archivo": "PuenteLateralBrazoExtendido1.gif",
+      "grupoMuscular": [
+        "core",
+        "oblicuos",
+        "hombros"
+      ],
+      "implemento": "peso_corporal",
+      "dificultad": "intermedio",
+      "descripcion": "Puente lateral con extensión de brazo"
+    },
+    {
+      "id": 42,
+      "nombre": "Puente Lateral con Abducción Cadera",
+      "archivo": "PuenteLateralC:AbduccionCadera1.gif",
+      "grupoMuscular": [
+        "core",
+        "oblicuos",
+        "gluteos"
+      ],
+      "implemento": "peso_corporal",
+      "dificultad": "avanzado",
+      "descripcion": "Puente lateral combinado con elevación de pierna"
+    },
+    {
+      "id": 43,
+      "nombre": "Puente Lateral Rodilla Apoyada 1",
+      "archivo": "PuenteLateralRodillaApoyada1.gif",
+      "grupoMuscular": [
+        "core",
+        "oblicuos"
+      ],
+      "implemento": "peso_corporal",
+      "dificultad": "principiante",
+      "descripcion": "Versión simplificada del puente lateral"
+    },
+    {
+      "id": 44,
+      "nombre": "Puente Supino Pies Elevados",
+      "archivo": "PuenteSupinoPiesElevados.gif",
+      "grupoMuscular": [
+        "gluteos",
+        "piernas"
+      ],
+      "implemento": "banco",
+      "dificultad": "intermedio",
+      "descripcion": "Elevación de cadera con pies elevados en banco"
+    },
+    {
+      "id": 45,
+      "nombre": "Push Planck",
+      "archivo": "PushPlanck.gif",
+      "grupoMuscular": [
+        "core",
+        "brazos",
+        "pecho"
+      ],
+      "implemento": "peso_corporal",
+      "dificultad": "avanzado",
+      "descripcion": "Transición dinámica entre plancha y posición de push-up"
+    },
+    {
+      "id": 46,
+      "nombre": "Push Up Apoyo Rodillas",
+      "archivo": "PushUpApoyoRodillas.gif",
+      "grupoMuscular": [
+        "pecho",
+        "brazos",
+        "hombros"
+      ],
+      "implemento": "peso_corporal",
+      "dificultad": "principiante",
+      "descripcion": "Flexión de brazos con rodillas apoyadas"
+    },
+    {
+      "id": 47,
+      "nombre": "Push Up Excéntrico",
+      "archivo": "PushUpExcéntrico.gif",
+      "grupoMuscular": [
+        "pecho",
+        "brazos",
+        "hombros"
+      ],
+      "implemento": "peso_corporal",
+      "dificultad": "intermedio",
+      "descripcion": "Flexión enfocada en la fase de descenso controlado"
+    },
+    {
+      "id": 48,
+      "nombre": "Push Up Manos Elevadas",
+      "archivo": "PushUpManosElevadas.gif",
+      "grupoMuscular": [
+        "pecho",
+        "brazos",
+        "hombros"
+      ],
+      "implemento": "banco",
+      "dificultad": "principiante",
+      "descripcion": "Flexión con manos elevadas en superficie"
+    },
+    {
+      "id": 49,
+      "nombre": "Push Up Pies Elevados",
+      "archivo": "PushUpPiesElevados.gif",
+      "grupoMuscular": [
+        "pecho",
+        "brazos",
+        "hombros"
+      ],
+      "implemento": "banco",
+      "dificultad": "avanzado",
+      "descripcion": "Flexión con pies elevados para mayor dificultad"
+    },
+    {
+      "id": 50,
+      "nombre": "Push Up Rodillas Apoyadas + Giro",
+      "archivo": "PushUpRodillasApoyadas+Giro.gif",
+      "grupoMuscular": [
+        "pecho",
+        "brazos",
+        "core"
+      ],
+      "implemento": "peso_corporal",
+      "dificultad": "intermedio",
+      "descripcion": "Flexión modificada con rotación del torso"
+    },
+    {
+      "id": 51,
+      "nombre": "Push Ups",
+      "archivo": "PushUps.gif",
+      "grupoMuscular": [
+        "pecho",
+        "brazos",
+        "hombros"
+      ],
+      "implemento": "peso_corporal",
+      "dificultad": "intermedio",
+      "descripcion": "Flexión de brazos tradicional"
+    },
+    {
+      "id": 52,
+      "nombre": "Sentadilla + Estocadas 2",
+      "archivo": "Sentadilla+Estocadas2.gif",
+      "grupoMuscular": [
+        "piernas",
+        "gluteos"
+      ],
+      "implemento": "peso_corporal",
+      "dificultad": "intermedio",
+      "descripcion": "Combinación de sentadilla seguida de estocadas"
+    },
+    {
+      "id": 53,
+      "nombre": "Sentadilla",
+      "archivo": "Sentadilla.gif",
+      "grupoMuscular": [
+        "piernas",
+        "gluteos"
+      ],
+      "implemento": "peso_corporal",
+      "dificultad": "principiante",
+      "descripcion": "Ejercicio básico de sentadilla con peso corporal"
+    },
+    {
+      "id": 54,
+      "nombre": "Sentadilla con Salto",
+      "archivo": "SentadillaConSalto.gif",
+      "grupoMuscular": [
+        "piernas",
+        "gluteos",
+        "cardio"
+      ],
+      "implemento": "peso_corporal",
+      "dificultad": "intermedio",
+      "descripcion": "Sentadilla explosiva con salto vertical"
+    },
+    {
+      "id": 55,
+      "nombre": "Sentadilla Desde Cajón",
+      "archivo": "SentadillaDesdeCajon.gif",
+      "grupoMuscular": [
+        "piernas",
+        "gluteos"
+      ],
+      "implemento": "banco",
+      "dificultad": "principiante",
+      "descripcion": "Sentadilla asistida usando cajón como referencia"
+    },
+    {
+      "id": 56,
+      "nombre": "Sentadilla Frontal Mancuernas",
+      "archivo": "SentadillaFrontalMancuernas.gif",
+      "grupoMuscular": [
+        "piernas",
+        "gluteos",
+        "core"
+      ],
+      "implemento": "mancuernas",
+      "dificultad": "intermedio",
+      "descripcion": "Sentadilla con mancuernas sostenidas al frente"
+    },
+    {
+      "id": 57,
+      "nombre": "Sentadilla Isométrica Mancuernas",
+      "archivo": "SentadillaIsometricaMancuernas.gif",
+      "grupoMuscular": [
+        "piernas",
+        "gluteos"
+      ],
+      "implemento": "mancuernas",
+      "dificultad": "intermedio",
+      "descripcion": "Mantención estática de sentadilla con mancuernas"
+    },
+    {
+      "id": 58,
+      "nombre": "Sentadilla Isométrica",
+      "archivo": "SentadillaIsométrica.gif",
+      "grupoMuscular": [
+        "piernas",
+        "gluteos"
+      ],
+      "implemento": "peso_corporal",
+      "dificultad": "principiante",
+      "descripcion": "Mantención estática en posición de sentadilla"
+    },
+    {
+      "id": 59,
+      "nombre": "Skipping",
+      "archivo": "Skipping.gif",
+      "grupoMuscular": [
+        "cardio",
+        "piernas"
+      ],
+      "implemento": "peso_corporal",
+      "dificultad": "principiante",
+      "descripcion": "Ejercicio cardiovascular de elevación de rodillas"
+    },
+    {
+      "id": 60,
+      "nombre": "Soft Jumping Jacks",
+      "archivo": "SoftJumpingJacks.gif",
+      "grupoMuscular": [
+        "cardio",
+        "cuerpo_completo"
+      ],
+      "implemento": "peso_corporal",
+      "dificultad": "principiante",
+      "descripcion": "Versión de bajo impacto de jumping jacks"
+    },
+    {
+      "id": 61,
+      "nombre": "Subida al Banco Alternada 2",
+      "archivo": "SubidaAlBancoAlternada2.gif",
+      "grupoMuscular": [
+        "piernas",
+        "gluteos"
+      ],
+      "implemento": "banco",
+      "dificultad": "principiante",
+      "descripcion": "Subida alternada a banco o cajón"
+    },
+    {
+      "id": 62,
+      "nombre": "Subida al Banco Mancuernas",
+      "archivo": "SubidaAlBancoMancuernas1.gif",
+      "grupoMuscular": [
+        "piernas",
+        "gluteos"
+      ],
+      "implemento": [
+        "banco",
+        "mancuernas"
+      ],
+      "dificultad": "intermedio",
+      "descripcion": "Subida a banco con mancuernas para mayor resistencia"
+    },
+    {
+      "id": 63,
+      "nombre": "Subida Banco Peso Corporal 1",
+      "archivo": "SubidaBancoPesoCorporal1.gif",
+      "grupoMuscular": [
+        "piernas",
+        "gluteos"
+      ],
+      "implemento": "banco",
+      "dificultad": "principiante",
+      "descripcion": "Subida básica a banco o escalón"
+    },
+    {
+      "id": 64,
+      "nombre": "Subida Banco Alt con Mancuernas",
+      "archivo": "SubidaBancoAltCMancuernas.gif",
+      "grupoMuscular": [
+        "piernas",
+        "gluteos"
+      ],
+      "implemento": [
+        "banco",
+        "mancuernas"
+      ],
+      "dificultad": "intermedio",
+      "descripcion": "Subida alternada a banco con mancuernas"
+    },
+    {
+      "id": 65,
+      "nombre": "Toque Hombros",
+      "archivo": "ToqueHombros.gif",
+      "grupoMuscular": [
+        "core",
+        "hombros",
+        "brazos"
+      ],
+      "implemento": "peso_corporal",
+      "dificultad": "intermedio",
+      "descripcion": "Ejercicio de plancha tocando hombros alternadamente"
+    },
+    {
+      "id": 66,
+      "nombre": "Walk Outs",
+      "archivo": "WalkOuts.gif",
+      "grupoMuscular": [
+        "core",
+        "brazos",
+        "hombros"
+      ],
+      "implemento": "peso_corporal",
+      "dificultad": "intermedio",
+      "descripcion": "Caminata con manos hacia plancha y regreso"
+    },
+    {
+      "id": 67,
+      "nombre": "Wall Slides",
+      "archivo": "Wall Slides.gif",
+      "grupoMuscular": [
+        "espalda",
+        "hombros"
+      ],
+      "implemento": "pared",
+      "dificultad": "principiante",
+      "descripcion": "Deslizamiento de brazos contra la pared para movilidad"
+    }
+  ],
+  "categorias": {
+    "grupoMuscular": [
+      "core",
+      "abdominales",
+      "piernas",
+      "gluteos",
+      "brazos",
+      "pecho",
+      "espalda",
+      "hombros",
+      "triceps",
+      "oblicuos",
+      "cardio",
+      "cuerpo_completo"
+    ],
+    "implemento": [
+      "peso_corporal",
+      "mancuernas",
+      "banco",
+      "silla",
+      "pared"
+    ],
+    "dificultad": [
+      "principiante",
+      "intermedio",
+      "avanzado"
+    ]
+  }
+}
